@@ -1925,90 +1925,9 @@
     /* ── UTILITY ── */
     .overflow-clip { overflow: hidden; }
 
-    /* ── PDF BUTTON ── */
-    #save-pdf-btn {
-      position: fixed;
-      top: 2.2rem; left: 8vw;
-      background: rgba(0,0,0,0.45);
-      border: 1px solid rgba(255,255,255,0.18);
-      color: rgba(255,255,255,0.65);
-      font-family: inherit;
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      padding: 0.5rem 1rem;
-      border-radius: 3px;
-      cursor: pointer;
-      z-index: 200;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: background 0.2s, border-color 0.2s, color 0.2s;
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-    }
-    #save-pdf-btn:hover {
-      background: rgba(0,0,0,0.65);
-      border-color: rgba(255,255,255,0.5);
-      color: #fff;
-    }
-
-    /* ── PRINT / SAVE AS PDF ── */
-    @media print {
-      @page { size: landscape; margin: 0; }
-      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-      #progress-bar, #next-btn, #save-pdf-btn, #nav-dots, #presenter-notes-btn { display: none !important; }
-      html, body { overflow: visible !important; height: auto !important; }
-      .s-divider-bg, .closing-ghost, .case-bg-num, .hw-widget, .hw-img-modal { display: none !important; }
-      section {
-        display: block !important;
-        width: 100% !important;
-        height: 100vh !important;
-        min-height: 0 !important;
-        max-height: 100vh !important;
-        overflow: hidden !important;
-        break-after: page !important;
-        page-break-after: always !important;
-        break-before: auto !important;
-        page-break-before: auto !important;
-        break-inside: avoid !important;
-        page-break-inside: avoid !important;
-        padding: 10vh 8vw !important;
-        box-sizing: border-box !important;
-      }
-      section:last-of-type { break-after: auto !important; page-break-after: auto !important; }
-      .hero-title .li { transform: translateY(0) !important; }
-      .hero-meta { opacity: 1 !important; transform: translateY(0) !important; }
-      .s-title { opacity: 1 !important; transform: translateY(0) !important; }
-      .s-sub { opacity: 1 !important; transform: translateY(0) !important; }
-      .s-eyebrow { opacity: 1 !important; transform: translateY(0) !important; }
-      .def-inner { transform: translateY(0) !important; }
-      .s-pull-quote, .cs-pivot { opacity: 1 !important; transform: translateY(0) !important; }
-      .s-body, .case-desc, .build-act-body { opacity: 1 !important; transform: translateY(0) !important; }
-      .s-list-item { opacity: 1 !important; transform: translateX(0) !important; }
-      .s-image, .cs-screenshot { opacity: 1 !important; transform: translateY(0) !important; }
-      .claude-eyebrow, .overview-eyebrow, .tips-eyebrow { opacity: 1 !important; transform: translateY(0) !important; }
-      .closing-eyebrow, .closing-title, .closing-body, .closing-meta { opacity: 1 !important; }
-      .intro-greeting { opacity: 1 !important; transform: translateY(0) !important; }
-      .intro-name-inner { transform: translateY(0) !important; }
-      .intro-rule { transform: scaleX(1) !important; }
-      .intro-facts li { opacity: 1 !important; transform: translateY(0) !important; }
-      .intro-photo-main { transform: translateX(0) !important; }
-      .agenda-eyebrow { opacity: 1 !important; transform: translateY(0) !important; }
-      .agenda-row { opacity: 1 !important; transform: translateY(0) !important; }
-    }
   </style>
 </head>
 <body>
-
-<button id="save-pdf-btn">
-  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-    <path d="M7 1.5v7M4 6l3 3.5 3-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M1.5 10v2h11v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>
-  PDF
-</button>
 
 <div id="progress-bar"></div>
 
@@ -3546,26 +3465,6 @@
     notesWin.document.close();
   });
 
-  // ── Save PDF ──
-  document.getElementById('save-pdf-btn').addEventListener('click', () => {
-    lenis.stop();
-    gsap.set('.hero-title .li', { y: 0 });
-    gsap.set(['.hero-meta', '.s-eyebrow', '.s-pull-quote', '.cs-pivot', '.s-body', '.case-desc',
-              '.build-act-body', '.s-image', '.cs-screenshot', '.claude-eyebrow',
-              '.overview-eyebrow', '.tips-eyebrow'], { opacity: 1, y: 0 });
-    gsap.set('.def-inner', { y: 0 });
-    gsap.set('.s-list-item', { opacity: 1, x: 0 });
-    gsap.set(['.s-title', '.s-sub'], { opacity: 1, y: 0 });
-    gsap.set(['.closing-eyebrow', '.closing-title', '.closing-body', '.closing-meta'], { opacity: 1 });
-    gsap.set('.intro-greeting', { opacity: 1, y: 0 });
-    gsap.set('.intro-name-inner', { y: 0 });
-    gsap.set('.intro-rule', { scaleX: 1 });
-    gsap.set('.intro-facts li', { opacity: 1, y: 0 });
-    gsap.set('.intro-photo-main', { x: 0 });
-    gsap.set('.agenda-eyebrow', { opacity: 1, y: 0 });
-    gsap.set('.agenda-row', { opacity: 1, y: 0 });
-    setTimeout(() => { window.print(); lenis.start(); }, 150);
-  });
 
 </script>
 </body>
