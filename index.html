@@ -5,20 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prototype Faster with Lovable</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
   <style>
     :root {
-      --navy:      #33475B;
-      --orange:    #FF5C35;
-      --rose:      #A83D5C;
-      --teal:      #00A4BD;
+      --dark:      #46062b;
+      --accent:    #ff2f00;
+      --lavender:  #d6c2d9;
+      --bg-light:  #f9f5ff;
+      --ink:       #141414;
       --light:     #f5f8fa;
-      --muted:     #99acc2;
-      --card:      #2D3E50;
-      --pink-bg:   #FDEDF2;
+      --muted:     #d6c2d9;
+      --deep-teal: #042729;
+      --pink:      #fcc3dc;
+      --sage:      #b9cdbe;
+      /* legacy aliases */
+      --navy:      #46062b;
+      --orange:    #ff2f00;
+      --rose:      #46062b;
+      --teal:      #d6c2d9;
+      --card:      #141414;
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -26,7 +38,7 @@
     html { scroll-behavior: auto; }
 
     body {
-      font-family: 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+      font-family: 'Lexend Deca', 'Helvetica Neue', Arial, sans-serif;
       background: var(--navy);
       color: var(--light);
       overflow-x: hidden;
@@ -73,42 +85,18 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      padding: 0 8vw;
-      background: var(--navy);
+      justify-content: flex-end;
+      padding: 0 8vw 8vh;
+      background: var(--dark);
       position: relative;
       overflow: hidden;
     }
 
-    .hero-ghost {
-      position: absolute;
-      right: -2vw; top: 50%;
-      transform: translateY(-50%);
-      font-size: 28vw;
-      font-weight: 900;
-      color: rgba(255,255,255,0.025);
-      line-height: 1;
-      pointer-events: none;
-      user-select: none;
-      letter-spacing: -0.05em;
-    }
-
-    .hero-eyebrow {
-      font-size: 0.8rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--orange);
+.hero-title {
+      font-size: clamp(4rem, 11vw, 13rem);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
       margin-bottom: 2.5rem;
-      opacity: 0;
-      transform: translateY(12px);
-    }
-
-    .hero-title {
-      font-size: clamp(3.2rem, 9vw, 10rem);
-      font-weight: 900;
-      line-height: 0.92;
-      letter-spacing: -0.04em;
-      margin-bottom: 3.5rem;
     }
 
     .hero-title .line {
@@ -121,37 +109,627 @@
       transform: translateY(105%);
     }
 
-    .hero-subtitle {
-      font-size: clamp(1rem, 1.8vw, 1.4rem);
-      color: var(--muted);
-      max-width: 560px;
-      line-height: 1.7;
+
+    .hero-meta {
+      font-size: clamp(1rem, 1.6vw, 1.35rem);
+      color: rgba(255,255,255,0.7);
       opacity: 0;
-      transform: translateY(16px);
+      transform: translateY(12px);
+    }
+
+    .hero-meta strong {
+      color: #fff;
+      font-weight: 700;
     }
 
     .hero-scroll-hint {
       position: absolute;
-      bottom: 3rem; left: 8vw;
+      bottom: 3rem; right: 8vw;
       display: flex;
       align-items: center;
       gap: 14px;
       font-size: 0.75rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: rgba(255,255,255,0.35);
       opacity: 0;
     }
 
     .scroll-track {
       width: 48px; height: 1px;
-      background: linear-gradient(to right, var(--muted), transparent);
+      background: linear-gradient(to right, rgba(255,255,255,0.35), transparent);
       animation: track 2.4s ease-in-out infinite;
     }
 
     @keyframes track {
       0%, 100% { width: 24px; opacity: 0.3; }
       50%       { width: 56px; opacity: 0.9; }
+    }
+
+    /* ── INTRO ── */
+    #intro {
+      min-height: 100vh;
+      background: var(--bg-light);
+      display: grid;
+      grid-template-columns: 55% 45%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .intro-left {
+      padding: 8vh 5vw 8vh 8vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .intro-greeting {
+      font-size: clamp(1rem, 2vw, 2rem);
+      font-weight: 300;
+      color: #1a1a1a;
+      letter-spacing: 0.06em;
+      opacity: 0;
+      transform: translateY(16px);
+      margin-bottom: 0.3rem;
+    }
+
+    .intro-name {
+      font-size: clamp(4.5rem, 9.5vw, 11rem);
+      font-weight: 900;
+      color: #1a1a1a;
+      line-height: 0.88;
+      letter-spacing: -0.04em;
+      overflow: hidden;
+    }
+
+    .intro-name-inner {
+      display: block;
+      transform: translateY(105%);
+    }
+
+    .intro-rule {
+      width: 100%;
+      height: 1px;
+      background: #1a1a1a;
+      margin: 2.8rem 0 3rem;
+      transform-origin: left;
+      transform: scaleX(0);
+    }
+
+    .intro-facts {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+      margin-bottom: 3rem;
+    }
+
+    .intro-facts li {
+      display: flex;
+      align-items: baseline;
+      gap: 1.6rem;
+      opacity: 0;
+      transform: translateY(14px);
+    }
+
+    .fact-num {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: 0.1em;
+      flex-shrink: 0;
+      width: 20px;
+    }
+
+    .fact-text {
+      font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+      font-weight: 400;
+      color: #1a1a1a;
+      line-height: 1.55;
+    }
+
+
+    /* Right: full-bleed headshot */
+    .intro-right {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .intro-photo-main {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      transform: translateX(100%);
+    }
+
+    /* ── AGENDA ── */
+    #agenda {
+      min-height: 100vh;
+      background: var(--bg-light);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 10vh 8vw;
+      overflow: hidden;
+    }
+
+    .agenda-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 2vh;
+      opacity: 0;
+      transform: translateY(12px);
+    }
+
+    .agenda-list {
+      list-style: none;
+      width: 100%;
+    }
+
+    .agenda-item {
+      position: relative;
+      padding: 2.5vh 0;
+      border-top: 1px solid var(--accent);
+      overflow: hidden;
+      cursor: default;
+    }
+
+    .agenda-item:last-child { border-bottom: 1px solid var(--accent); }
+
+    .agenda-row {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: baseline;
+      gap: 2.5rem;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .agenda-num {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      flex-shrink: 0;
+      width: 28px;
+    }
+
+    .agenda-title {
+      font-size: clamp(2rem, 4.5vw, 6rem);
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      transition: color 0.3s ease;
+    }
+
+    .agenda-item:hover .agenda-title { color: var(--accent); }
+
+    .agenda-desc {
+      font-size: clamp(0.8rem, 1vw, 0.95rem);
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.5;
+      text-align: right;
+      align-self: center;
+      flex-shrink: 0;
+      transition: color 0.3s ease;
+    }
+
+    .agenda-item:hover .agenda-desc { color: var(--accent); }
+
+    /* ── OVERVIEW ── */
+    #overview {
+      background: var(--deep-teal);
+      padding: 12vh 8vw 14vh;
+      overflow: hidden;
+    }
+
+    .overview-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6vh;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .overview-question {
+      font-size: clamp(3rem, 8vw, 11rem);
+      font-weight: 800;
+      color: var(--light);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 5vh;
+      overflow: hidden;
+    }
+
+    .overview-question .def-inner {
+      display: block;
+      transform: translateY(105%);
+    }
+
+    .overview-definition {
+      font-size: clamp(2.4rem, 5.5vw, 7rem);
+      font-weight: 800;
+      color: var(--bg-light);
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      max-width: 16ch;
+      margin-bottom: 8vh;
+    }
+
+    .overview-definition .def-line {
+      display: block;
+      overflow: hidden;
+    }
+
+    .overview-definition .def-inner {
+      display: block;
+      transform: translateY(105%);
+    }
+
+    /* Accent word */
+    .overview-definition em {
+      font-style: normal;
+      color: var(--sage);
+    }
+
+    .overview-video-wrap {
+      position: relative;
+      width: 100%;
+    }
+
+    .overview-video-wrap video {
+      width: 100%;
+      display: block;
+      border-radius: 4px;
+    }
+
+    /* Appreciation grid */
+    .overview-appreciate {
+      margin-top: 14vh;
+    }
+
+    .overview-appreciate-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 3vh;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .appreciate-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .appreciate-row {
+      display: grid;
+      grid-template-columns: 6rem 1fr;
+      align-items: center;
+      padding: 2rem 0;
+      border-top: 1px solid rgba(214, 194, 217, 0.2);
+      gap: 2rem;
+      opacity: 0;
+      transform: translateX(-24px);
+      transition: background 0.2s ease;
+      cursor: default;
+    }
+
+    .appreciate-row:last-child {
+      border-bottom: 1px solid rgba(214, 194, 217, 0.2);
+    }
+
+    .appreciate-row-num {
+      font-size: clamp(0.75rem, 1vw, 0.9rem);
+      font-weight: 300;
+      color: var(--sage);
+      letter-spacing: 0.06em;
+      opacity: 0.6;
+    }
+
+    .appreciate-row-text {
+      font-size: clamp(1.4rem, 2.8vw, 3rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--light);
+    }
+
+    .appreciate-row:hover {
+      background: rgba(185, 205, 190, 0.07);
+    }
+
+    .appreciate-row:hover .appreciate-row-text {
+      color: var(--sage);
+      transition: color 0.2s ease;
+    }
+
+    .appreciate-row.highlight .appreciate-row-text {
+      color: var(--accent);
+    }
+
+    .appreciate-row.highlight:hover .appreciate-row-text {
+      color: var(--sage);
+    }
+
+    /* ── CLAUDE ── */
+    #claude {
+      background: var(--dark);
+      padding: 14vh 8vw 16vh;
+    }
+
+    .claude-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 3vh;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .claude-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 4rem;
+      margin-bottom: 6vh;
+    }
+
+    .claude-gif {
+      width: clamp(80px, 10vw, 140px);
+      height: auto;
+      opacity: 0;
+      transform: scale(0.85);
+      flex-shrink: 0;
+    }
+
+    .claude-heading {
+      font-size: clamp(2rem, 4vw, 5rem);
+      font-weight: 800;
+      color: var(--light);
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .claude-heading em {
+      font-style: normal;
+      color: var(--pink);
+    }
+
+    .claude-list {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 8vh;
+    }
+
+    .claude-row {
+      display: grid;
+      grid-template-columns: 6rem 1fr;
+      align-items: center;
+      padding: 2rem 0;
+      border-top: 1px solid rgba(252, 195, 220, 0.2);
+      gap: 2rem;
+      opacity: 0;
+      transform: translateX(-24px);
+      transition: background 0.2s ease;
+      cursor: default;
+    }
+
+    .claude-row:last-child {
+      border-bottom: 1px solid rgba(252, 195, 220, 0.2);
+    }
+
+    .claude-row:hover {
+      background: rgba(252, 195, 220, 0.06);
+    }
+
+    .claude-row:hover .claude-row-text {
+      color: var(--pink);
+      transition: color 0.2s ease;
+    }
+
+    .claude-row-num {
+      font-size: clamp(0.75rem, 1vw, 0.9rem);
+      font-weight: 300;
+      color: var(--pink);
+      letter-spacing: 0.06em;
+      opacity: 0.6;
+    }
+
+    .claude-row-text {
+      font-size: clamp(1.4rem, 2.8vw, 3rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--light);
+    }
+
+    .claude-callout {
+      border-left: 3px solid var(--pink);
+      padding: 2rem 2.4rem;
+      opacity: 0;
+      transform: translateY(16px);
+    }
+
+    .claude-callout-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 1rem;
+    }
+
+    .claude-callout-text {
+      font-size: clamp(1rem, 1.6vw, 1.4rem);
+      font-weight: 500;
+      color: rgba(245, 248, 250, 0.75);
+      line-height: 1.55;
+      max-width: 72ch;
+    }
+
+    /* ── TIPS ── */
+    #tips {
+      background: var(--bg-light);
+      padding: 14vh 8vw 16vh;
+    }
+
+    .tips-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.4;
+      margin-bottom: 8vh;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .tips-block {
+      margin-bottom: 8vh;
+    }
+
+    .tips-block-num {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .tips-block-heading {
+      font-size: clamp(2.4rem, 5vw, 6.5rem);
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -0.04em;
+      line-height: 1.0;
+      margin-bottom: 3vh;
+      overflow: hidden;
+    }
+
+    .tips-block-heading .def-inner {
+      display: block;
+      transform: translateY(105%);
+    }
+
+    .tips-sub-list {
+      display: flex;
+      flex-direction: column;
+      padding-left: 0;
+      border-top: 1px solid rgba(20, 20, 20, 0.12);
+    }
+
+    .tips-sub-row {
+      display: grid;
+      grid-template-columns: 2rem 1fr;
+      align-items: start;
+      gap: 1.2rem;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid rgba(20, 20, 20, 0.12);
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+
+    .tips-sub-arrow {
+      font-size: 1rem;
+      color: var(--accent);
+      margin-top: 0.15em;
+      font-weight: 300;
+    }
+
+    .tips-sub-text {
+      font-size: clamp(1rem, 1.8vw, 1.6rem);
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+    }
+
+    .tips-closing {
+      margin-top: 10vh;
+      display: flex;
+      flex-direction: column;
+      gap: 2vh;
+    }
+
+    .tips-closing-line {
+      font-size: clamp(2rem, 4.5vw, 6rem);
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      overflow: hidden;
+      opacity: 0;
+    }
+
+    .tips-closing-line span {
+      display: block;
+      transform: translateY(105%);
+    }
+
+    .tips-closing-line:last-child span {
+      color: var(--accent);
+    }
+
+    /* ── STORIES INTRO ── */
+    #stories-intro {
+      background: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 14vh 8vw;
+    }
+
+    .stories-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 3vh;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .stories-heading {
+      font-size: clamp(4rem, 11vw, 14rem);
+      font-weight: 900;
+      line-height: 0.9;
+      letter-spacing: -0.045em;
+      color: var(--light);
+    }
+
+    .stories-heading .def-line {
+      display: block;
+      overflow: hidden;
+    }
+
+    .stories-heading .def-inner {
+      display: block;
+      transform: translateY(105%);
     }
 
     /* ── PROBLEM (sticky) ── */
@@ -308,6 +886,7 @@
 
     .case-bg-num {
       position: absolute;
+      z-index: 0;
       font-size: clamp(14rem, 28vw, 32rem);
       font-weight: 900;
       line-height: 0.8;
@@ -331,6 +910,8 @@
       padding: 6px 18px;
       border-radius: 100px;
       margin-bottom: 2rem;
+      position: relative;
+      z-index: 2;
     }
 
     .case-01 .case-chip { background: var(--rose); color: #fff; }
@@ -344,6 +925,8 @@
       letter-spacing: -0.035em;
       max-width: 680px;
       margin-bottom: 6vh;
+      position: relative;
+      z-index: 2;
     }
 
     .case-grid {
@@ -382,6 +965,127 @@
       text-transform: uppercase;
       color: var(--muted);
       margin-bottom: 1.2rem;
+    }
+
+    .aha-attr {
+      margin-top: 1rem;
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0.6;
+    }
+
+    /* ── CASE STUDY ACTS ── */
+    .cs-act {
+      position: relative;
+      z-index: 2;
+      margin-bottom: 10vh;
+      padding-top: 4vh;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .cs-act-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 3vh;
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    .cs-quote-block {
+      max-width: 72ch;
+      margin-bottom: 4vh;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .cs-quote-text {
+      font-size: clamp(1.2rem, 2.2vw, 2rem);
+      font-weight: 600;
+      line-height: 1.4;
+      letter-spacing: -0.02em;
+      color: var(--light);
+      margin-bottom: 1rem;
+    }
+
+    .cs-quote-attr {
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0.6;
+    }
+
+    .cs-act-constraint .cs-constraint-text {
+      font-size: clamp(1.4rem, 2.8vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--accent);
+      max-width: 22ch;
+      opacity: 0;
+      transform: translateY(24px);
+    }
+
+    .cs-screenshot {
+      width: 100%;
+      border-radius: 8px;
+      display: block;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .cs-video {
+      width: 100%;
+      border-radius: 8px;
+      display: block;
+    }
+
+    .cs-video-full {
+      margin-top: 3vh;
+      width: 100%;
+      max-width: 900px;
+      border-radius: 8px;
+    }
+
+    .cs-link {
+      display: inline-block;
+      margin-top: 2rem;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--rose);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rose);
+      padding-bottom: 2px;
+      transition: opacity 0.2s;
+    }
+
+    .cs-link:hover { opacity: 0.7; }
+
+    .cs-inline-link {
+      color: var(--lavender);
+      text-decoration: none;
+      border-bottom: 1px solid currentColor;
+      transition: opacity 0.2s;
+    }
+
+    .cs-inline-link:hover { opacity: 0.7; }
+
+    .cs-video-placeholder {
+      margin-top: 3vh;
+      border: 1px dashed rgba(255,255,255,0.15);
+      border-radius: 8px;
+      padding: 3rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      opacity: 0.5;
     }
 
     .aha-quote {
@@ -461,6 +1165,21 @@
 
 <div id="progress-bar"></div>
 
+<!-- TEMP: page number indicator -->
+<div id="page-indicator" style="
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  z-index: 999;
+  font-family: monospace;
+  font-size: 0.75rem;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 4px;
+  pointer-events: none;
+">p1</div>
+
 <nav id="nav-dots">
   <div class="nav-dot active"  data-target="hero"></div>
   <div class="nav-dot"         data-target="problem"></div>
@@ -473,70 +1192,214 @@
 
 <!-- ═══════════ HERO ═══════════ -->
 <section id="hero">
-  <div class="hero-ghost">PM</div>
 
-  <p class="hero-eyebrow">Claire Ha · Product Management · HubSpot</p>
-
-  <h1 class="hero-title">
-    <span class="line"><span class="li">Prototype</span></span>
-    <span class="line"><span class="li" style="color:var(--orange)">faster.</span></span>
-    <span class="line"><span class="li">Ship better.</span></span>
+<h1 class="hero-title">
+    <span class="line"><span class="li" style="font-weight:900">Lovable</span></span>
+    <span class="line"><span class="li" style="font-weight:300">for HubSpot PMs</span></span>
   </h1>
 
-  <p class="hero-subtitle">
-    Three case studies on how I used Lovable to go from idea to alignment,
-    faster than writing a spec.
-  </p>
+  <p class="hero-meta"><strong>April 2026,</strong> Service Hub</p>
 
   <div class="hero-scroll-hint">
     <div class="scroll-track"></div>
-    <span>Scroll to explore</span>
+    <span>Scroll</span>
   </div>
 </section>
 
-<!-- ═══════════ PROBLEM ═══════════ -->
-<section id="problem">
-  <div class="problem-sticky">
-    <div class="problem-stage">
-      <p class="p-label">The Problem</p>
+<!-- ═══════════ INTRO ═══════════ -->
+<section id="intro">
 
-      <div class="p-item first" id="p1">
-        <h2 class="p-heading">
-          You write the spec.<br>
-          The team builds<br>
-          <span style="color:var(--orange)">something different.</span>
-        </h2>
-        <p class="p-body">Technically correct. But it feels wrong. That gap is almost never an engineering problem — it's a communication problem.</p>
+  <!-- Left: type + facts -->
+  <div class="intro-left">
+    <p class="intro-greeting">Hi, I'm</p>
+    <h2 class="intro-name"><span class="intro-name-inner">CLAIRE.</span></h2>
+    <div class="intro-rule"></div>
+    <ul class="intro-facts">
+      <li><span class="fact-num">01</span><span class="fact-text">PM of Live Chat at HubSpot</span></li>
+      <li><span class="fact-num">02</span><span class="fact-text">Based in New Jersey</span></li>
+      <li><span class="fact-num">03</span><span class="fact-text">I love dogs, mountains, and building things.</span></li>
+      <li><span class="fact-num">04</span><span class="fact-text">First job was building a pest control website in high school — html, css &amp; vanilla javascript</span></li>
+    </ul>
+  </div>
+
+  <!-- Right: full-bleed portrait -->
+  <div class="intro-right">
+    <img class="intro-photo-main" src="claire.jpg" alt="Claire Ha">
+  </div>
+
+</section>
+
+<!-- ═══════════ AGENDA ═══════════ -->
+<section id="agenda">
+  <p class="agenda-eyebrow">Today's Agenda</p>
+  <ul class="agenda-list">
+    <li class="agenda-item">
+      <div class="agenda-row">
+        <span class="agenda-num">01</span>
+        <span class="agenda-title">Overview</span>
+        <span class="agenda-desc">What is Lovable? When should you use it?</span>
       </div>
-
-      <div class="p-item" id="p2">
-        <h2 class="p-heading">
-          Figma has a<br>
-          <span style="color:var(--rose)">learning curve.</span><br>
-          Code is harder.
-        </h2>
-        <p class="p-body">Most PMs don't prototype because the tools get in the way. So we write longer docs instead — and the gap stays.</p>
+    </li>
+    <li class="agenda-item">
+      <div class="agenda-row">
+        <span class="agenda-num">02</span>
+        <span class="agenda-title">Stories</span>
+        <span class="agenda-desc">Anecdotes for how Lovable has helped me as a PM.</span>
       </div>
+    </li>
+    <li class="agenda-item">
+      <div class="agenda-row">
+        <span class="agenda-num">03</span>
+        <span class="agenda-title">Demo</span>
+        <span class="agenda-desc">I'll show you how to use Lovable live.</span>
+      </div>
+    </li>
+    <li class="agenda-item">
+      <div class="agenda-row">
+        <span class="agenda-num">04</span>
+        <span class="agenda-title">DIY</span>
+        <span class="agenda-desc">Then, you'll do it yourself.</span>
+      </div>
+    </li>
+  </ul>
+</section>
 
-      <div class="p-item" id="p3">
-        <h2 class="p-heading">
-          There's a faster<br>
-          way to <span style="color:var(--teal)">close the gap.</span>
-        </h2>
-        <p class="p-body">What if you could show a working, clickable prototype before anyone writes a line of code?</p>
+<!-- ═══════════ OVERVIEW ═══════════ -->
+<section id="overview">
+  <p class="overview-eyebrow">01 — Overview</p>
+
+  <h2 class="overview-question">
+    <span class="def-line"><span class="def-inner">What is Lovable?</span></span>
+  </h2>
+
+  <h2 class="overview-definition">
+    <span class="def-line"><span class="def-inner">Build full stack</span></span>
+    <span class="def-line"><span class="def-inner">apps &amp; websites</span></span>
+    <span class="def-line"><span class="def-inner">through <em>natural-language</em></span></span>
+    <span class="def-line"><span class="def-inner">conversations.</span></span>
+  </h2>
+
+  <div class="overview-video-wrap">
+    <video autoplay muted loop playsinline>
+      <source src="lovable-demo.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <div class="overview-appreciate">
+    <p class="overview-appreciate-label">Things I appreciate about Lovable</p>
+    <div class="appreciate-list">
+      <div class="appreciate-row">
+        <span class="appreciate-row-num">01</span>
+        <span class="appreciate-row-text">Frontend packages and libraries are already set up</span>
+      </div>
+      <div class="appreciate-row">
+        <span class="appreciate-row-num">02</span>
+        <span class="appreciate-row-text">Backend can be set up without external accounts</span>
+      </div>
+      <div class="appreciate-row">
+        <span class="appreciate-row-num">03</span>
+        <span class="appreciate-row-text">Built-in access to AI features without API tokens</span>
+      </div>
+      <div class="appreciate-row">
+        <span class="appreciate-row-num">04</span>
+        <span class="appreciate-row-text">Quickly deploy and share via a live URL for customer interviews</span>
+      </div>
+      <div class="appreciate-row">
+        <span class="appreciate-row-num">05</span>
+        <span class="appreciate-row-text">Easily collaborate with others</span>
+      </div>
+      <div class="appreciate-row">
+        <span class="appreciate-row-num">06</span>
+        <span class="appreciate-row-text">Easier to manipulate for quick changes due to DOM context</span>
       </div>
     </div>
-
-    <div class="problem-count" id="prob-count">1</div>
   </div>
 </section>
 
-<!-- ═══════════ BRIDGE ═══════════ -->
-<section id="bridge">
-  <p class="bridge-text">
-    I've been using <em>Lovable</em> to prototype product ideas in plain language.
-    Here's what I learned from three real experiments.
-  </p>
+<!-- ═══════════ CLAUDE ═══════════ -->
+<section id="claude">
+  <p class="claude-eyebrow">02 — Claude</p>
+  <h2 class="overview-question" style="margin-bottom: 5vh;">
+    <span class="def-line"><span class="def-inner">Claude can also prototype.</span></span>
+  </h2>
+  <h2 class="claude-heading">Claude is usually <em>superior,</em> but:</h2>
+
+  <div class="claude-list">
+    <div class="claude-row">
+      <span class="claude-row-num">01</span>
+      <span class="claude-row-text">No customer-accessible URL to share for live testing</span>
+    </div>
+    <div class="claude-row">
+      <span class="claude-row-num">02</span>
+      <span class="claude-row-text">AI-powered prototypes are harder to spin up</span>
+    </div>
+    <div class="claude-row">
+      <span class="claude-row-num">03</span>
+      <span class="claude-row-text">Without DOM context, prompts need to be more precise</span>
+    </div>
+  </div>
+
+  <div class="claude-callout">
+    <p class="claude-callout-label">Use Claude when</p>
+    <p class="claude-callout-text">You need pixel-perfect HubSpot fidelity — Trellis components, real CSS — and you're not sharing it with customers.</p>
+  </div>
+</section>
+
+<!-- ═══════════ TIPS ═══════════ -->
+<section id="tips">
+  <p class="tips-eyebrow">03 — Tips</p>
+
+  <div class="tips-block" id="tips-block-1">
+    <p class="tips-block-num">01</p>
+    <h2 class="tips-block-heading">
+      <span class="def-inner">Be intentional.</span>
+      <span class="def-inner">Know your goals.</span>
+    </h2>
+    <div class="tips-sub-list">
+      <div class="tips-sub-row">
+        <span class="tips-sub-arrow">→</span>
+        <span class="tips-sub-text">Do you want a prototype that customers can access and click through?</span>
+      </div>
+      <div class="tips-sub-row">
+        <span class="tips-sub-arrow">→</span>
+        <span class="tips-sub-text">Does it need to have perfect HubSpot-level fidelity and styling?</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tips-block" id="tips-block-2">
+    <p class="tips-block-num">02</p>
+    <h2 class="tips-block-heading">
+      <span class="def-inner">Learn to get good</span>
+      <span class="def-inner">at both.</span>
+    </h2>
+    <div class="tips-sub-list">
+      <div class="tips-sub-row">
+        <span class="tips-sub-arrow">→</span>
+        <span class="tips-sub-text">They are two distinct and powerful tools at your disposal.</span>
+      </div>
+      <div class="tips-sub-row">
+        <span class="tips-sub-arrow">→</span>
+        <span class="tips-sub-text">The more you use both, the more you'll build personal heuristics for when to reach for one over the other.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tips-closing">
+    <p class="tips-closing-line"><span>A lot of it comes down to preference.</span></p>
+    <p class="tips-closing-line"><span>The landscape is constantly changing.</span></p>
+  </div>
+</section>
+
+<!-- ═══════════ STORIES INTRO ═══════════ -->
+<section id="stories-intro">
+  <div class="stories-intro-inner">
+    <p class="stories-eyebrow">Three stories</p>
+    <h2 class="stories-heading">
+      <span class="def-line"><span class="def-inner">Here's how I've</span></span>
+      <span class="def-line"><span class="def-inner">actually used it.</span></span>
+    </h2>
+  </div>
 </section>
 
 <!-- ═══════════ CASE 01 DIVIDER ═══════════ -->
@@ -544,36 +1407,78 @@
   <span class="s-divider-bg">01</span>
   <div class="s-divider-inner">
     <p class="s-num">Case Study 01 of 03</p>
-    <h2 class="s-title">The<br>Lookalike</h2>
-    <p class="s-sub">Recreating an existing UI as a starting point</p>
+    <h2 class="s-title">The<br>URL Problem</h2>
+    <p class="s-sub">When a customer asks for something the browser won't allow</p>
   </div>
 </section>
 
 <!-- ═══════════ CASE 01 BODY ═══════════ -->
 <section class="case case-01" id="case-01">
   <div class="case-bg-num">01</div>
-  <div class="case-chip">The Lookalike</div>
-  <h2 class="case-title">Start from<br>something real.</h2>
-  <div class="case-grid">
-    <div>
-      <p class="case-desc">
-        Before you can prototype a change, you need a realistic base to change.
-        I asked Lovable to recreate HubSpot's chatflow step editor from a plain-language description —
-        left sidebar, center canvas, right configuration panel.
-        <br><br>
-        One prompt. 90 seconds. A clickable mock that actually looked like our product.
-        <br><br>
-        The key skill: be specific about layout before anything else. Name the panels,
-        name the visual style, reference real product context.
-      </p>
+  <div class="case-chip">Case Study 01</div>
+
+  <h2 class="case-title">A customer asked.<br>We prototyped it<br>the same day.</h2>
+
+  <!-- Act 1: The Feature -->
+  <div class="cs-act">
+    <p class="cs-act-label">The Feature</p>
+    <p class="case-desc">We <a class="cs-inline-link" href="https://app.hubspot.com/l/product-updates/?rollout=298923" target="_blank">shipped screen capture to the Live Chat widget</a>. With one click, visitors on desktop and tablet can take and attach a screenshot directly to their chat conversation — no extensions, no copy-pasting, no asking agents to walk them through it. Less friction for the visitor, more context for the agent.</p>
+    <video class="cs-video cs-video-full" autoplay muted loop playsinline>
+      <source src="screencapture-feature.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <!-- Act 2: The Feedback -->
+  <div class="cs-act">
+    <p class="cs-act-label">The Feedback</p>
+    <div class="cs-quote-block">
+      <p class="cs-quote-text">"This is great. A really useful addition for us. We would love to be able to see the URLs in the screenshot too however. Our URLs can give us a lot of useful information for diagnosing issues (e.g. unique identifiers)."</p>
+      <p class="cs-quote-attr">Bryony Shelton, trykiroku.com</p>
     </div>
-    <div>
-      <div class="aha-card">
-        <p class="aha-eyebrow">The aha moment</p>
-        <p class="aha-quote">"I'd been describing UIs in words for years. The moment I could show someone instead of explain — the conversation changed completely. In 10 minutes we uncovered alignment gaps that would have taken 3 review cycles."</p>
+    <img class="cs-screenshot" src="cs1-feedback.png" alt="Slack feedback from Bryony Shelton" />
+  </div>
+
+  <!-- Act 3: The Constraint -->
+  <div class="cs-act cs-act-constraint">
+    <p class="cs-act-label">The Problem</p>
+    <p class="cs-constraint-text">The Screen Capture API captures only the tab's rendered content. Not the address bar. Not the browser chrome. This is a hard browser restriction — no web API can access the browser UI.</p>
+  </div>
+
+  <!-- Act 4: The Prototype -->
+  <div class="cs-act">
+    <p class="cs-act-label">The Prototype</p>
+    <div class="case-grid">
+      <div>
+        <p class="case-desc">So I built a quick Lovable app to explore what was actually possible. The idea: capture the tab, then programmatically embed the current URL as an overlay before upload. No browser chrome needed — just the data that matters.</p>
+        <a class="cs-link" href="https://tab-snap-tool.lovable.app" target="_blank">tab-snap-tool.lovable.app →</a>
+      </div>
+      <div>
+        <img class="cs-screenshot" src="cs1-slack.png" alt="Claire sharing the Lovable prototype in Slack" />
+      </div>
+    </div>
+    <!-- placeholder for Lovable demo recording -->
+    <div class="cs-video-placeholder">
+      <p>Screen recording of the prototype coming soon</p>
+    </div>
+  </div>
+
+  <!-- Act 5: The Outcome -->
+  <div class="cs-act">
+    <p class="cs-act-label">The Outcome</p>
+    <div class="case-grid">
+      <div>
+        <div class="aha-card">
+          <p class="aha-eyebrow">The customer's response</p>
+          <p class="aha-quote">"Yes I saw this the other day — fantastic! Thanks so much. Finding this feature really helpful already."</p>
+          <p class="aha-attr">Bryony Shelton</p>
+        </div>
+      </div>
+      <div>
+        <img class="cs-screenshot" src="cs1-email.png" alt="Email reply from Bryony" />
       </div>
     </div>
   </div>
+
 </section>
 
 <!-- ═══════════ CASE 02 DIVIDER ═══════════ -->
@@ -695,24 +1600,11 @@
   });
 
   // ── Hero entrance ──
-  const heroTl = gsap.timeline({ delay: 0.2 });
+  const heroTl = gsap.timeline({ delay: 0.3 });
   heroTl
-    .to('.hero-eyebrow', { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' })
-    .to('.hero-title .li', { y: 0, duration: 1.1, stagger: 0.12, ease: 'power4.out' }, '-=0.6')
-    .to('.hero-subtitle', { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, '-=0.5')
+.to('.hero-title .li', { y: 0, duration: 1.1, stagger: 0.14, ease: 'power4.out' }, '-=0.3')
+    .to('.hero-meta',      { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.4')
     .to('.hero-scroll-hint', { opacity: 1, duration: 0.8 }, '-=0.2');
-
-  // ── Hero ghost parallax ──
-  gsap.to('.hero-ghost', {
-    y: -120,
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '#hero',
-      start: 'top top',
-      end: 'bottom top',
-      scrub: true,
-    }
-  });
 
   // ── Problem section: scroll-driven item swap ──
   const pItems  = [document.getElementById('p1'), document.getElementById('p2'), document.getElementById('p3')];
@@ -744,6 +1636,128 @@
       else if (p < 0.66)  showProblem(1);
       else                showProblem(2);
     }
+  });
+
+  // ── Intro section ──
+  const introTl = gsap.timeline({
+    scrollTrigger: { trigger: '#intro', start: 'top 60%' }
+  });
+
+  introTl
+    // Headshot slides in from right edge
+    .to('.intro-photo-main', {
+      x: 0, duration: 1.1, ease: 'power4.out',
+    }, 0)
+    // "Hi, I'm" fades up
+    .to('.intro-greeting', {
+      opacity: 1, y: 0, duration: 0.6, ease: 'power3.out',
+    }, 0.2)
+    // "CLAIRE." slams up from below
+    .to('.intro-name-inner', {
+      y: 0, duration: 0.9, ease: 'power4.out',
+    }, 0.4)
+    // Rule draws left to right
+    .to('.intro-rule', {
+      scaleX: 1, duration: 0.7, ease: 'power3.inOut',
+    }, 0.8)
+    // Facts stagger up
+    .to('.intro-facts li', {
+      opacity: 1, y: 0, duration: 0.45, stagger: 0.1, ease: 'power2.out',
+    }, 1.1)
+
+  // ── Agenda ──
+  const agendaTl = gsap.timeline({
+    scrollTrigger: { trigger: '#agenda', start: 'top 65%' }
+  });
+  agendaTl
+    .to('.agenda-eyebrow', { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' })
+    .to('.agenda-row', { opacity: 1, y: 0, duration: 0.6, stagger: 0.13, ease: 'power3.out' }, '-=0.1');
+
+
+  // ── Overview ──
+  const overviewTl = gsap.timeline({
+    scrollTrigger: { trigger: '#overview', start: 'top 65%' }
+  });
+  overviewTl
+    .to('.overview-eyebrow', { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' })
+    .to('.overview-question .def-inner', { y: 0, duration: 0.8, ease: 'power4.out' }, '-=0.2')
+    .to('.overview-definition .def-inner', {
+      y: 0, duration: 0.9, stagger: 0.1, ease: 'power4.out'
+    }, '-=0.4')
+    .to('.overview-video-wrap', { duration: 0 }, '-=0.3');
+
+  // ── Appreciate grid ──
+  const appreciateTl = gsap.timeline({
+    scrollTrigger: { trigger: '.overview-appreciate', start: 'top 70%' }
+  });
+  appreciateTl
+    .to('.overview-appreciate-label', { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' })
+    .to('.appreciate-row', { opacity: 1, x: 0, duration: 0.5, stagger: 0.07, ease: 'power3.out' }, '-=0.2');
+
+  // ── Claude ──
+  const claudeTl = gsap.timeline({
+    scrollTrigger: { trigger: '#claude', start: 'top 65%' }
+  });
+  claudeTl
+    .to('.claude-eyebrow', { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' })
+    .to('#claude .def-inner', { y: 0, duration: 0.8, ease: 'power4.out' }, '-=0.2')
+    .to('.claude-heading', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.4')
+    .to('.claude-row', { opacity: 1, x: 0, duration: 0.5, stagger: 0.07, ease: 'power3.out' }, '-=0.3')
+    .to('.claude-callout', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.1');
+
+  // ── Tips block 1 ──
+  const tipsTl1 = gsap.timeline({
+    scrollTrigger: { trigger: '#tips-block-1', start: 'top 70%' }
+  });
+  tipsTl1
+    .to('.tips-eyebrow', { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' })
+    .to('#tips-block-1 .tips-block-num', { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' }, '-=0.2')
+    .to('#tips-block-1 .def-inner', { y: 0, duration: 0.8, stagger: 0.1, ease: 'power4.out' }, '-=0.2')
+    .to('#tips-block-1 .tips-sub-row', { opacity: 1, x: 0, duration: 0.45, stagger: 0.08, ease: 'power3.out' }, '-=0.3');
+
+  // ── Tips block 2 ──
+  const tipsTl2 = gsap.timeline({
+    scrollTrigger: { trigger: '#tips-block-2', start: 'top 70%' }
+  });
+  tipsTl2
+    .to('#tips-block-2 .tips-block-num', { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' })
+    .to('#tips-block-2 .def-inner', { y: 0, duration: 0.8, stagger: 0.1, ease: 'power4.out' }, '-=0.2')
+    .to('#tips-block-2 .tips-sub-row', { opacity: 1, x: 0, duration: 0.45, stagger: 0.08, ease: 'power3.out' }, '-=0.3');
+
+  // ── Tips closing ──
+  gsap.to('.tips-closing-line', {
+    opacity: 1,
+    duration: 0,
+    scrollTrigger: { trigger: '.tips-closing', start: 'top 80%' }
+  });
+  gsap.to('.tips-closing-line span', {
+    y: 0,
+    duration: 0.9,
+    stagger: 0.15,
+    ease: 'power4.out',
+    scrollTrigger: { trigger: '.tips-closing', start: 'top 80%' }
+  });
+
+  // ── Stories intro ──
+  const storiesTl = gsap.timeline({
+    scrollTrigger: { trigger: '#stories-intro', start: 'top 60%' }
+  });
+  storiesTl
+    .to('.stories-eyebrow', { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' })
+    .to('.stories-heading .def-inner', { y: 0, duration: 1, stagger: 0.12, ease: 'power4.out' }, '-=0.2');
+
+  // ── Case 01 acts ──
+  document.querySelectorAll('.cs-act').forEach(act => {
+    gsap.timeline({
+      scrollTrigger: { trigger: act, start: 'top 75%' }
+    })
+    .to(act.querySelector('.cs-act-label'), { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' })
+    .to(act.querySelectorAll('.cs-quote-block, .cs-constraint-text, .case-desc, .aha-card'), {
+      opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power3.out'
+    }, '-=0.1')
+    .to(act.querySelectorAll('.cs-screenshot'), {
+      opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out'
+    }, '-=0.4');
   });
 
   // ── Bridge ──
@@ -851,6 +1865,35 @@
       end: 'bottom top',
       scrub: true,
     }
+  });
+
+  // ── TEMP: Page indicator ──
+  const pageIndicator = document.getElementById('page-indicator');
+  const pageMap = [
+    ['hero',    'p1 — Hero'],
+    ['intro',   'p2 — Meet Claire'],
+    ['agenda',   'p3 — Agenda'],
+    ['overview', 'p4 — Overview'],
+    ['problem',  'p5 — Problem'],
+    ['bridge',  'p4 — Bridge'],
+    ['div-01',  'p5 — Case 01 Divider'],
+    ['case-01', 'p6 — Case 01 Body'],
+    ['div-02',  'p7 — Case 02 Divider'],
+    ['case-02', 'p8 — Case 02 Body'],
+    ['div-03',  'p9 — Case 03 Divider'],
+    ['case-03', 'p10 — Case 03 Body'],
+    ['closing', 'p11 — Closing'],
+  ];
+  pageMap.forEach(([id, label]) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 60%',
+      end: 'bottom 60%',
+      onEnter:     () => pageIndicator.textContent = label,
+      onEnterBack: () => pageIndicator.textContent = label,
+    });
   });
 
   // ── Nav dots ──
