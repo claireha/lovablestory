@@ -2361,7 +2361,7 @@
     </div>
 
     <!-- Zen Plant Care video viewport -->
-    <div style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box; padding: 0 8vw;">
+    <div id="build-act-video" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box; padding: 0 8vw;">
       <video class="cs-video" src="assets/videos/cs2-zenplantcare.mp4" autoplay loop muted playsinline style="max-width: min(900px, 88vw); width: 100%;"></video>
     </div>
 
@@ -2930,15 +2930,20 @@
   // Inject appreciate-stop as an intermediate stop after #overview
   const overviewIdx = baseSections.findIndex(s => s.id === 'overview');
   const tipsIdx = baseSections.findIndex(s => s.id === 'tips');
+  const case02Idx = baseSections.findIndex(s => s.id === 'case-02');
   const tipsBlock2 = document.getElementById('tips-block-2');
   const tipsClosingWrap = document.querySelector('.tips-closing-wrap');
+  const buildActs = ['build-act-01', 'build-act-02', 'build-act-03', 'build-act-video']
+    .map(id => document.getElementById(id)).filter(Boolean);
   const allSections = [
     ...baseSections.slice(0, overviewIdx + 1),
     appreciateStop,
     ...baseSections.slice(overviewIdx + 1, tipsIdx + 1),
     ...(tipsBlock2 ? [tipsBlock2] : []),
     ...(tipsClosingWrap ? [tipsClosingWrap] : []),
-    ...baseSections.slice(tipsIdx + 1)
+    ...baseSections.slice(tipsIdx + 1, case02Idx + 1),
+    ...buildActs,
+    ...baseSections.slice(case02Idx + 1)
   ];
 
   function getNextSection() {
