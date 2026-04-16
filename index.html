@@ -1683,22 +1683,12 @@
 
 <div id="progress-bar"></div>
 
-<!-- TEMP: page number indicator -->
-<div id="page-indicator" style="
-  position: fixed;
-  bottom: 1.5rem;
-  left: 1.5rem;
-  z-index: 999;
-  font-family: monospace;
-  font-size: 0.75rem;
-  background: rgba(0,0,0,0.6);
-  color: #fff;
-  padding: 4px 10px;
-  border-radius: 4px;
-  pointer-events: none;
-">p1</div>
 
 <button id="next-btn" aria-label="Next section">↓</button>
+
+<div class="hw-img-modal" id="hw-img-modal">
+  <img id="hw-modal-img" src="" alt="Screenshot enlarged">
+</div>
 
 <nav id="nav-dots">
   <div class="nav-dot active"  data-target="hero"></div>
@@ -1948,14 +1938,14 @@
   <!-- Act 1: The Feature — title + desc left, widget right -->
   <div class="hw-wrap" style="align-items: flex-start; margin-top: 4vh;">
     <div class="hw-desc">
-      <h2 class="case-title" style="margin-bottom: 4vh;">A customer asked. We prototyped it the same day.</h2>
+      <h2 class="case-title" style="margin-bottom: 4vh;">A customer asked. We prototyped and got it done.</h2>
       <div class="cs-act" style="border-top: none; padding-top: 0;">
         <p class="cs-act-label">The Feature</p>
-        <p class="case-desc">We <a class="cs-inline-link" href="https://app.hubspot.com/l/product-updates/?rollout=298923" target="_blank">shipped a new screen capture feature for the Live Chat widget</a>.<br><br>With one click, visitors on desktop and tablet can take and attach a screenshot directly to their chat conversation. It's simple enough for anyone to use, regardless of technical experience.<br><br>Less friction for the visitor, more context for the agent.</p>
+        <p class="case-desc">We <a class="cs-inline-link" href="https://app.hubspot.com/l/product-updates/?rollout=298923" target="_blank">shipped a new screen capture feature for the Live Chat widget</a>.<br><br>With a few clicks, visitors on desktop and tablet can take and attach a screenshot directly to their chat conversation. It's simple enough for anyone to use, regardless of technical experience.<br><br>Less friction for the visitor, more context for the agent.</p>
       </div>
 
       <!-- Act 2: The Feedback -->
-      <div class="cs-act">
+      <div class="cs-act" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box;">
         <p class="cs-act-label">The Feedback</p>
         <p class="cs-pivot" style="font-size: clamp(1.8rem, 3.5vw, 4rem); margin-bottom: 4vh; color: var(--lavender);">A customer asked: could the screenshot include the URL?</p>
         <img class="cs-screenshot" src="assets/images/cs1-feedback.png" alt="Slack feedback from Bryony Shelton" />
@@ -1963,21 +1953,23 @@
       </div>
 
       <!-- Act 4: The Prototype -->
-      <div class="cs-act" style="min-height: 100vh; padding-top: 15vh; box-sizing: border-box;">
+      <div class="cs-act" id="cs-act-prototype" style="padding-top: 15vh;">
         <p class="cs-pivot" style="color: var(--lavender); margin-bottom: 6vh;">So it was time to get creative.</p>
         <p class="cs-act-label">The Prototype</p>
         <p class="case-desc" style="max-width: 60ch;">So I built a quick Lovable app to explore what was actually possible.<br><br>The idea: capture the tab, then programmatically embed the current URL as an overlay before upload. No browser chrome needed — just the data that matters.<br><br>I shared it with the engineering DRI, exported the Lovable code, and we used it as a working reference to build the real thing.</p>
         <a class="cs-proto-btn" href="https://tab-snap-tool.lovable.app" target="_blank">tab-snap-tool.lovable.app <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 2px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+        <img class="cs-screenshot" src="assets/images/cs1-slack.png" alt="Claire sharing the Lovable prototype in Slack" style="margin-top: 3vh;" />
         <video class="cs-video cs-video-full" autoplay loop muted playsinline style="margin-top: 3vh;">
           <source src="assets/videos/cs1-prototype.mp4" type="video/mp4">
         </video>
-        <img class="cs-screenshot" src="assets/images/cs1-slack.png" alt="Claire sharing the Lovable prototype in Slack" style="margin-top: 3vh;" />
       </div>
 
       <!-- Act 5: The Outcome -->
       <div class="cs-act">
         <p class="cs-act-label">The Outcome</p>
-        <img class="cs-screenshot" src="assets/images/cs1-email.png" alt="Email reply from Bryony" />
+        <p class="cs-pivot" style="color: var(--lavender); margin-bottom: 3vh;">Fast feedback loop. Happy customer.</p>
+        <p class="case-desc" style="max-width: 52ch;">The feedback came in, we prototyped the solution with Lovable, handed off the code to engineering, and shipped it — all within days. Bryony's response said the rest.</p>
+        <img class="cs-screenshot" src="assets/images/cs1-email.png" alt="Email reply from Bryony" style="margin-top: 3vh;" />
       </div>
     </div>
     <div class="hw-widget" id="hw-widget">
@@ -1986,14 +1978,7 @@
             <svg width="9" height="15" viewBox="0 0 9 15" fill="none"><path d="M8 1L1 7.5L8 14" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
           <div class="hw-logo-circle">
-            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="80" height="80" fill="#4A7C63"/>
-              <path d="M28 62 L30 70 L50 70 L52 62 Z" fill="white"/>
-              <rect x="26" y="58" width="28" height="6" rx="3" fill="white"/>
-              <path d="M40 58 L40 34" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-              <path d="M40 48 C38 44 30 42 24 34 C31 32 39 41 40 46 Z" fill="white"/>
-              <path d="M40 40 C42 36 50 34 56 26 C49 24 41 33 40 38 Z" fill="white"/>
-            </svg>
+            <img src="assets/images/zen-plant-care.png" alt="Zen Plant Care" style="width:100%;height:100%;object-fit:cover;">
           </div>
           <div class="hw-identity">
             <span class="hw-name">Zen Plant Care</span>
@@ -2006,14 +1991,7 @@
         <div class="hw-body" id="hw-body">
           <div class="hw-msg-row">
             <div class="hw-msg-icon">
-              <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="80" height="80" fill="#4A7C63"/>
-                <path d="M28 62 L30 70 L50 70 L52 62 Z" fill="white"/>
-                <rect x="26" y="58" width="28" height="6" rx="3" fill="white"/>
-                <path d="M40 58 L40 34" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-                <path d="M40 48 C38 44 30 42 24 34 C31 32 39 41 40 46 Z" fill="white"/>
-                <path d="M40 40 C42 36 50 34 56 26 C49 24 41 33 40 38 Z" fill="white"/>
-              </svg>
+              <img src="assets/images/zen-plant-care.png" alt="Zen Plant Care" style="width:100%;height:100%;object-fit:cover;">
             </div>
             <div class="hw-bubble hw-bubble-bot">Got any questions? I'm happy to help.</div>
           </div>
@@ -2409,8 +2387,10 @@
 
   // ── Case 01 acts ──
   document.querySelectorAll('.cs-act').forEach(act => {
+    const label = act.querySelector('.cs-act-label');
+    const triggerEl = label || act;
     gsap.timeline({
-      scrollTrigger: { trigger: act, start: 'top 90%' }
+      scrollTrigger: { trigger: triggerEl, start: 'top 85%' }
     })
     .to(act.querySelector('.cs-act-label'), { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' })
     .to(act.querySelectorAll('.cs-quote-block, .cs-constraint-text, .case-desc, .aha-card, .cs-narrative, .cs-constraint-inline, .cs-pivot'), {
@@ -2615,34 +2595,6 @@
     nextBtn.classList.toggle('hidden', !next);
   });
 
-  // ── TEMP: Page indicator ──
-  const pageIndicator = document.getElementById('page-indicator');
-  const pageMap = [
-    ['hero',    'p1 — Hero'],
-    ['intro',   'p2 — Meet Claire'],
-    ['agenda',   'p3 — Agenda'],
-    ['overview', 'p4 — Overview'],
-    ['problem',  'p5 — Problem'],
-    ['bridge',  'p4 — Bridge'],
-    ['div-01',  'p5 — Case 01 Divider'],
-    ['case-01', 'p6 — Case 01 Body'],
-    ['div-02',  'p7 — Case 02 Divider'],
-    ['case-02', 'p8 — Case 02 Body'],
-    ['div-03',  'p9 — Case 03 Divider'],
-    ['case-03', 'p10 — Case 03 Body'],
-    ['closing', 'p11 — Closing'],
-  ];
-  pageMap.forEach(([id, label]) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    ScrollTrigger.create({
-      trigger: el,
-      start: 'top 60%',
-      end: 'bottom 60%',
-      onEnter:     () => pageIndicator.textContent = label,
-      onEnterBack: () => pageIndicator.textContent = label,
-    });
-  });
 
   // ── Nav dots ──
   const dots     = document.querySelectorAll('.nav-dot');
@@ -2677,7 +2629,7 @@
     const sendBtn = document.getElementById('hw-send');
     if (!msgBody || !input || !sendBtn) return;
 
-    const logoSvg = `<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="80" height="80" fill="#4A7C63"/><path d="M28 62 L30 70 L50 70 L52 62 Z" fill="white"/><rect x="26" y="58" width="28" height="6" rx="3" fill="white"/><path d="M40 58 L40 34" stroke="white" stroke-width="2.5" stroke-linecap="round"/><path d="M40 48 C38 44 30 42 24 34 C31 32 39 41 40 46 Z" fill="white"/><path d="M40 40 C42 36 50 34 56 26 C49 24 41 33 40 38 Z" fill="white"/></svg>`;
+    const logoSvg = `<img src="assets/images/zen-plant-care.png" alt="Zen Plant Care" style="width:100%;height:100%;object-fit:cover;">`;
 
     const replies = [
       "We'd love to help! Are you looking to adopt a dog, cat, or another animal?",
@@ -2758,9 +2710,28 @@
         video.onloadedmetadata = () => {
           video.play();
           const canvas = document.createElement('canvas');
-          canvas.width = video.videoWidth;
-          canvas.height = video.videoHeight;
-          canvas.getContext('2d').drawImage(video, 0, 0);
+          const dpr = window.devicePixelRatio || 1;
+          const cropW = Math.min(window.innerWidth * dpr, video.videoWidth);
+          const cropH = Math.min(window.innerHeight * dpr, video.videoHeight);
+          canvas.width = cropW;
+          canvas.height = cropH;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(video, 0, 0, cropW, cropH, 0, 0, cropW, cropH);
+
+          // URL overlay — only when the prototype section is in view
+          const protoAct = document.getElementById('cs-act-prototype');
+          const inProto = protoAct && protoAct.getBoundingClientRect().top < window.innerHeight * 0.9;
+          if (inProto) {
+            const barH = Math.round(48 * dpr);
+            const fSize = Math.round(15 * dpr);
+            const pad = Math.round(16 * dpr);
+            ctx.fillStyle = 'rgba(0,0,0,0.88)';
+            ctx.fillRect(0, cropH - barH, cropW, barH);
+            ctx.fillStyle = '#ffffff';
+            ctx.font = `${fSize}px "Courier New", Courier, monospace`;
+            ctx.textBaseline = 'middle';
+            ctx.fillText(window.location.href, pad, cropH - barH / 2);
+          }
           stream.getTracks().forEach(t => t.stop());
           pendingScreenshot = canvas.toDataURL('image/png');
           previewImg.src = pendingScreenshot;
@@ -2826,8 +2797,5 @@
   })();
 
 </script>
-<div class="hw-img-modal" id="hw-img-modal">
-  <img id="hw-modal-img" src="" alt="Screenshot enlarged">
-</div>
 </body>
 </html>
