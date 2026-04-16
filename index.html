@@ -855,6 +855,17 @@
       transform: translateY(105%);
     }
 
+    #case-02-intro .def-inner {
+      display: block;
+      transform: translateY(105%);
+    }
+
+    #case-03-intro .def-inner,
+    #diy-act .def-inner {
+      display: block;
+      transform: translateY(105%);
+    }
+
     /* ── PROBLEM (sticky) ── */
     #problem {
       height: 350vh;
@@ -1005,8 +1016,8 @@
     }
 
     .case-01 { background: var(--navy); }
-    .case-02 { background: var(--card); }
-    .case-03 { background: var(--navy); }
+    .case-02 { background: #0a1628; padding-top: 0; }
+    .case-03 { background: var(--navy); padding-top: 0; }
 
     .case-bg-num {
       position: absolute;
@@ -1121,6 +1132,146 @@
     }
 
     .case-02 .cs-act-label { color: var(--rose); }
+
+    /* ── Case-02/03 intro viewports ── */
+    #case-02-intro,
+    #case-03-intro {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-sizing: border-box;
+      padding: 0 8vw;
+    }
+
+    /* ── Build acts (case-02 three-act structure) ── */
+    .build-act {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-sizing: border-box;
+      padding: 0 8vw;
+    }
+    .build-act-num {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 2.5vh;
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    .build-act-heading {
+      font-size: clamp(3.2rem, 7.5vw, 9rem);
+      font-weight: 900;
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      color: #fff;
+      margin: 0 0 4vh 0;
+    }
+    .build-act-heading .def-line {
+      display: block;
+      overflow: hidden;
+    }
+    .build-act-heading .def-inner {
+      display: block;
+      transform: translateY(105%);
+    }
+    .build-act-body {
+      font-size: clamp(0.95rem, 1.3vw, 1.15rem);
+      line-height: 1.75;
+      color: rgba(255,255,255,0.65);
+      max-width: 50ch;
+      margin-bottom: 4vh;
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    .build-act-links {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75em;
+      opacity: 0;
+      transform: translateY(14px);
+    }
+
+    /* ── Word cycler (case-02 headline) ── */
+    .wc-line {
+      display: block;
+      overflow: hidden;
+      position: relative;
+      line-height: 0.95;
+    }
+    .wc-slot {
+      display: block;
+      color: var(--accent);
+      font: inherit;
+      letter-spacing: inherit;
+      line-height: inherit;
+    }
+
+    /* ── Prototyping tips (case-03) ── */
+    .proto-tips {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5vh;
+      max-width: 600px;
+    }
+    .proto-tip {
+      display: grid;
+      grid-template-columns: 1.5em 1fr;
+      gap: 0 1em;
+      align-items: baseline;
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    .proto-tip-arrow {
+      font-size: 0.85rem;
+      color: var(--accent);
+      font-weight: 700;
+      padding-top: 0.1em;
+    }
+    .proto-tip-text {
+      font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+      line-height: 1.6;
+      color: rgba(255,255,255,0.8);
+    }
+    .proto-tip-text strong {
+      color: #fff;
+      font-weight: 700;
+    }
+    .proto-tip-sub {
+      margin-top: 0.6em;
+      padding-left: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3em;
+    }
+    .proto-tip-sub li {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.5);
+      padding-left: 1em;
+      position: relative;
+    }
+    .proto-tip-sub li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: rgba(255,255,255,0.3);
+    }
+    .proto-tips-heading {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 3vh;
+      opacity: 0;
+      transform: translateY(8px);
+    }
 
     .cs-quote-block {
       max-width: 72ch;
@@ -1753,7 +1904,7 @@
     <li class="agenda-item">
       <div class="agenda-row">
         <span class="agenda-num">02</span>
-        <span class="agenda-title">Stories</span>
+        <span class="agenda-title">Examples</span>
         <span class="agenda-desc">Anecdotes for how Lovable has helped me as a PM.</span>
       </div>
     </li>
@@ -1776,7 +1927,7 @@
 
 <!-- ═══════════ OVERVIEW ═══════════ -->
 <section id="overview">
-  <p class="overview-eyebrow">01 — Overview</p>
+  <p class="overview-eyebrow">Overview</p>
 
   <h2 class="overview-question">
     <span class="def-line"><span class="def-inner">What is Lovable?</span></span>
@@ -1840,7 +1991,7 @@
 
 <!-- ═══════════ CLAUDE ═══════════ -->
 <section id="claude">
-  <p class="claude-eyebrow">02 — Claude</p>
+  <p class="claude-eyebrow">Claude</p>
   <h2 class="overview-question" style="margin-bottom: 6vh;">
     <span class="def-line"><span class="def-inner">Claude can also prototype.</span></span>
   </h2>
@@ -1859,7 +2010,7 @@
 <!-- ═══════════ TIPS ═══════════ -->
 <section id="tips">
   <div class="tips-block" id="tips-block-1">
-  <p class="tips-eyebrow">03 — Tips</p>
+  <p class="tips-eyebrow">Tips</p>
     <p class="tips-block-num">01</p>
     <h2 class="tips-block-heading">
       <span class="def-inner">Be intentional.</span>
@@ -1912,7 +2063,7 @@
 <!-- ═══════════ STORIES INTRO ═══════════ -->
 <section id="stories-intro">
   <div class="stories-intro-inner">
-    <p class="stories-eyebrow">Three stories</p>
+    <p class="stories-eyebrow">Examples</p>
     <h2 class="stories-heading">
       <span class="def-line"><span class="def-inner">Here's how prototyping</span></span>
       <span class="def-line"><span class="def-inner">has recently helped me.</span></span>
@@ -1924,7 +2075,7 @@
 <section class="s-divider s-divider-01" id="div-01">
   <span class="s-divider-bg">01</span>
   <div class="s-divider-inner">
-    <p class="s-num">Example 01 of 03</p>
+
     <h2 class="s-title">Micro Feature<br>Prototypes</h2>
     <p class="s-sub">When you just want to spin up something quick to show one tiny feature</p>
   </div>
@@ -1947,14 +2098,14 @@
       <!-- Act 2: The Feedback -->
       <div class="cs-act" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box;">
         <p class="cs-act-label">The Feedback</p>
-        <p class="cs-pivot" style="font-size: clamp(1.8rem, 3.5vw, 4rem); margin-bottom: 4vh; color: var(--lavender);">A customer asked: could the screenshot include the URL?</p>
+        <p class="cs-pivot" style="font-size: clamp(1.8rem, 3.5vw, 4rem); margin-bottom: 4vh; color: #fff;">Could the screenshot include the URL?</p>
         <img class="cs-screenshot" src="assets/images/cs1-feedback.png" alt="Slack feedback from Bryony Shelton" />
         <p class="case-desc" style="margin-top: 3vh;">The Screen Capture API only captures what's inside the tab — not the address bar, not anything in the browser's own UI. That's a hard constraint baked into the browser. No web API can reach above the tab.</p>
       </div>
 
       <!-- Act 4: The Prototype -->
-      <div class="cs-act" id="cs-act-prototype" style="padding-top: 15vh;">
-        <p class="cs-pivot" style="color: var(--lavender); margin-bottom: 6vh;">So it was time to get creative.</p>
+      <div class="cs-act" id="cs-act-prototype" style="padding-top: 6vh;">
+        <p class="cs-pivot" style="color: #fff; margin-bottom: 6vh;">So it was time to get creative.</p>
         <p class="cs-act-label">The Prototype</p>
         <p class="case-desc" style="max-width: 60ch;">So I built a quick Lovable app to explore what was actually possible.<br><br>The idea: capture the tab, then programmatically embed the current URL as an overlay before upload. No browser chrome needed — just the data that matters.<br><br>I shared it with the engineering DRI, exported the Lovable code, and we used it as a working reference to build the real thing.</p>
         <a class="cs-proto-btn" href="https://tab-snap-tool.lovable.app" target="_blank">tab-snap-tool.lovable.app <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 2px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
@@ -1965,10 +2116,10 @@
       </div>
 
       <!-- Act 5: The Outcome -->
-      <div class="cs-act">
+      <div class="cs-act" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box;">
         <p class="cs-act-label">The Outcome</p>
-        <p class="cs-pivot" style="color: var(--lavender); margin-bottom: 3vh;">Fast feedback loop. Happy customer.</p>
-        <p class="case-desc" style="max-width: 52ch;">The feedback came in, we prototyped the solution with Lovable, handed off the code to engineering, and shipped it — all within days. Bryony's response said the rest.</p>
+        <p class="cs-pivot" style="color: #fff; margin-bottom: 3vh;">Fast feedback loop. Happy customer.</p>
+        <p class="case-desc" style="max-width: 52ch;">The feedback came in, we prototyped the solution with Lovable, handed off the code to engineering, and shipped it.<br><br>Bryony's response says the rest.</p>
         <img class="cs-screenshot" src="assets/images/cs1-email.png" alt="Email reply from Bryony" style="margin-top: 3vh;" />
       </div>
     </div>
@@ -2024,37 +2175,76 @@
 <section class="s-divider s-divider-02" id="div-02">
   <span class="s-divider-bg">02</span>
   <div class="s-divider-inner">
-    <p class="s-num">Example 02 of 03</p>
-    <h2 class="s-title">Add a<br>Feature</h2>
-    <p class="s-sub">Isolating one change without rebuilding everything</p>
+
+    <h2 class="s-title">Just<br>Do It.</h2>
+    <p class="s-sub">Stretching the widget, the prompts, and my imagination</p>
   </div>
 </section>
 
 <!-- ═══════════ CASE 02 BODY ═══════════ -->
 <section class="case case-02" id="case-02">
   <div class="case-bg-num">02</div>
-  <div class="case-chip">Add a Feature</div>
-  <h2 class="case-title">One prompt.<br>One change.</h2>
-  <div class="case-grid">
-    <div>
-      <p class="case-desc">
-        Once you have a realistic base, adding a feature is fast. I added a
-        "Route to Agent" step type — described what the panel should show, what
-        options it needed, and what the fallback behavior looked like.
-        <br><br>
-        The constraint that matters: one specific thing per prompt. Scope tight.
-        Three things at once gets muddy output — and muddy output slows the conversation
-        you're trying to start.
-        <br><br>
-        I showed this to my TL before writing a single line of the spec.
-      </p>
-    </div>
-    <div>
-      <div class="aha-card">
-        <p class="aha-eyebrow">The aha moment</p>
-        <p class="aha-quote">"We caught two edge cases in the first 5 minutes of clicking. Not because we were looking for them — but because clicking a thing surfaces friction that reading about a thing never does."</p>
+
+  <div id="case-02-intro">
+    <h2 class="case-title" style="margin-top: 0; margin-bottom: 0; overflow: visible; line-height: 0.95;">
+      <span class="def-line" style="display: block; overflow: hidden;">
+        <span class="def-inner" style="display: block;">Doing is the best way to</span>
+      </span>
+      <span class="wc-line" id="wc-line">
+        <span class="wc-slot" id="wc-a" style="transform: translateY(110%);">learn.</span>
+        <span class="wc-slot" id="wc-b" style="position: absolute; top: 0; left: 0; transform: translateY(110%);">test.</span>
+      </span>
+    </h2>
+  </div>
+
+  <div>
+
+    <!-- Build to Learn -->
+    <div class="build-act" id="build-act-01">
+      <div class="case-chip" style="opacity: 0; transform: translateY(10px);">Example 2</div>
+      <h3 class="build-act-heading">
+        <span class="def-line"><span class="def-inner">Build to</span></span>
+        <span class="def-line"><span class="def-inner">Learn.</span></span>
+      </h3>
+      <p class="build-act-body">When I joined the team, I wanted to understand the product end-to-end before speccing anything. So I built a dummy site, configured a live chat widget, and powered it with Customer Agent. It let me learn the HubSpot setup process firsthand and see the widget exactly as a real site visitor would.</p>
+      <div class="build-act-links">
+        <a class="cs-proto-btn" href="https://second-chance-rescue.lovable.app/" target="_blank">second-chance-rescue.lovable.app <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-left:2px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
       </div>
     </div>
+
+    <!-- Build to Test -->
+    <div class="build-act" id="build-act-02">
+      <div class="case-chip" style="opacity: 0; transform: translateY(10px);">Example 3</div>
+      <h3 class="build-act-heading">
+        <span class="def-line"><span class="def-inner">Build to</span></span>
+        <span class="def-line"><span class="def-inner">Test.</span></span>
+      </h3>
+      <p class="build-act-body">Engineers had mentioned that single-page applications are a reliable source of hard-to-replicate bugs. So I built a SPA our team could use during bug bashes to reproduce issues quickly, without having to set up a test environment from scratch each time.</p>
+      <div class="build-act-links">
+        <a class="cs-proto-btn" href="https://laundry-lift-spa.lovable.app/" target="_blank">laundry-lift-spa.lovable.app <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-left:2px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+      </div>
+    </div>
+
+    <!-- Build to Stretch -->
+    <div class="build-act" id="build-act-03">
+      <div class="case-chip" style="opacity: 0; transform: translateY(10px);">Example 4</div>
+      <h3 class="build-act-heading">
+        <span class="def-line"><span class="def-inner">Build to</span></span>
+        <span class="def-line"><span class="def-inner">Stretch.</span></span>
+      </h3>
+      <p class="build-act-body">Once I understood the widget, I started pushing it. What if it worked like a unified search bar? What if the form factor was spotlight-style? Then Vijay sent me <a class="cs-inline-link" href="https://x.com/farzatv/status/2041314633978659092?s=46" target="_blank">this tweet</a>. I decided to find out how far it could actually go.</p>
+      <div class="build-act-links">
+        <a class="cs-proto-btn" href="https://cha-livechat-prototype.lovable.app" target="_blank">cha-livechat-prototype.lovable.app <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-left:2px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+        <a class="cs-proto-btn" href="https://foster-hearts-nj.lovable.app" target="_blank">foster-hearts-nj.lovable.app <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-left:2px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+        <a class="cs-proto-btn" href="https://zenplantcare.lovable.app" target="_blank">zenplantcare.lovable.app <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-left:2px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+      </div>
+    </div>
+
+    <!-- Zen Plant Care video viewport -->
+    <div style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box; padding: 0 8vw;">
+      <video class="cs-video" src="assets/videos/cs2-zenplantcare.mp4" autoplay loop muted playsinline style="max-width: min(900px, 88vw); width: 100%;"></video>
+    </div>
+
   </div>
 </section>
 
@@ -2062,37 +2252,61 @@
 <section class="s-divider s-divider-03" id="div-03">
   <span class="s-divider-bg">03</span>
   <div class="s-divider-inner">
-    <p class="s-num">Example 03 of 03</p>
-    <h2 class="s-title">Dogfood</h2>
-    <p class="s-sub">Experiencing your own product as a customer</p>
+
+    <h2 class="s-title">Lovable for the<br>HubSpot Portal</h2>
+    <p class="s-sub">Creating a clickable, shareable prototype of HubSpot</p>
   </div>
 </section>
 
 <!-- ═══════════ CASE 03 BODY ═══════════ -->
 <section class="case case-03" id="case-03">
   <div class="case-bg-num">03</div>
-  <div class="case-chip">Dogfood Your Product</div>
-  <h2 class="case-title">Feel the<br>friction yourself.</h2>
-  <div class="case-grid">
-    <div>
-      <p class="case-desc">
-        The most underrated use: build a customer-facing flow and click through it
-        yourself — as if you're the customer. I built a full chat widget experience.
-        Greeting, branching question, three clickable options. Then I used it.
-        <br><br>
-        The mindset shift is everything. You're not designing for a review.
-        You're simulating an experience. Write the prompt from the customer's perspective,
-        not the PM's.
-        <br><br>
-        You find friction faster by using a prototype than by reading a spec.
-      </p>
+
+  <!-- Case 03 intro viewport -->
+  <div id="case-03-intro">
+    <div class="case-chip" style="opacity: 0; transform: translateY(10px);">Example 03</div>
+    <h2 class="case-title" style="margin-top: 2vh; margin-bottom: 4vh; overflow: hidden; line-height: 0.95;">
+      <span class="def-inner" style="display: block;">Let's build the final example together.</span>
+    </h2>
+    <div class="c03-intro-links" style="display: flex; flex-direction: column; align-items: flex-start; gap: 0.75em; opacity: 0; transform: translateY(12px);">
+      <a class="cs-proto-btn" href="https://live-chat-widget-chqa.lovable.app/crm/chat/install" target="_blank" style="margin-top: 0;">live-chat-widget-chqa.lovable.app <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-left:6px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+      <a class="cs-proto-btn" href="https://lovable.dev/projects/65744b8a-796c-4e76-89a9-57252b233dfd" target="_blank" style="margin-top: 0.75rem;">Remix this Lovable project <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-left:6px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
     </div>
-    <div>
-      <div class="aha-card">
-        <p class="aha-eyebrow">The aha moment</p>
-        <p class="aha-quote">"I caught three things I would never have caught in a doc. The third option in the flow felt wrong the moment I clicked it. No one told me — I just felt it. I knew exactly what to fix."</p>
+  </div>
+
+  <div>
+    <div class="cs-act" id="proto-tips-act" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box; padding: 0 8vw;">
+      <p class="proto-tips-heading">Prototyping Tips</p>
+      <div class="proto-tips">
+        <div class="proto-tip">
+          <span class="proto-tip-arrow">→</span>
+          <div class="proto-tip-text"><strong>Start with the foundation.</strong> Get the basic structure right first, then layer in details one section at a time. Don't try to build everything in a single prompt.</div>
+        </div>
+        <div class="proto-tip">
+          <span class="proto-tip-arrow">→</span>
+          <div class="proto-tip-text"><strong>Use your favorite LLM to craft the initial prompt.</strong> The better the prompt, the stronger the starting point. Ask Claude or ChatGPT to help you describe the layout precisely before you paste it into Lovable.</div>
+        </div>
+        <div class="proto-tip">
+          <span class="proto-tip-arrow">→</span>
+          <div class="proto-tip-text"><strong>Build a good one once, then remix it forever.</strong> Lovable's remix feature means you never start from scratch. A solid base prototype is a reusable asset.</div>
+        </div>
+        <div class="proto-tip">
+          <span class="proto-tip-arrow">→</span>
+          <div class="proto-tip-text"><strong>When precision matters, bring the right tools.</strong>
+            <ul class="proto-tip-sub">
+              <li>Browser Dev Tools for CSS values</li>
+              <li>Screenshot tool for pixel dimensions</li>
+              <li>Google Slides for hex codes if Dev Tools feels heavy</li>
+            </ul>
+          </div>
+        </div>
+        <div class="proto-tip">
+          <span class="proto-tip-arrow">→</span>
+          <div class="proto-tip-text"><strong>Consider security.</strong> Be mindful of visitor data, customer PII, and HubSpot confidential information in anything you prototype or share externally.</div>
+        </div>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -2101,10 +2315,13 @@
   <div class="closing-ghost">Go</div>
 
   <p class="closing-eyebrow">The Takeaway</p>
-  <h2 class="closing-title">Before you write your next spec, spend 10 minutes building a prototype.</h2>
+  <h2 class="closing-title">You don't need permission to prototype.</h2>
   <p class="closing-body">
-    Lovable isn't a Figma replacement. It's a blank-page replacement.
-    Use it to think out loud — then hand off to design when the direction is clear.
+    Lovable isn't a Figma replacement or a production tool. It's a thinking tool — the fastest way to go from an idea in your head to something real that other people can see, click, and react to.
+    <br><br>
+    Use it to learn the product you own. Use it to test edge cases before they surprise engineering. Use it to stretch what you think is possible. Use it to build things that make a meeting better than any doc could.
+    <br><br>
+    The only wrong move is waiting until you have enough time to do it properly. You already have enough time.
     <br><br>
     Questions? Find <a href="mailto:cha@hubspot.com">Claire Ha</a> — happy to prototype together.
   </p>
@@ -2384,6 +2601,88 @@
   storiesTl
     .to('.stories-eyebrow', { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' })
     .to('.stories-heading .def-inner', { y: 0, duration: 1, stagger: 0.12, ease: 'power4.out' }, '-=0.2');
+
+  // ── Case 02 intro ──
+  const case02Intro = document.getElementById('case-02-intro');
+  if (case02Intro) {
+    const c02tl = gsap.timeline({
+      scrollTrigger: { trigger: case02Intro, start: 'top 70%' }
+    });
+    c02tl
+      .to(case02Intro.querySelectorAll('.def-inner'), { y: 0, duration: 1.0, stagger: 0.12, ease: 'power4.out' })
+      .to('#wc-a', { y: 0, duration: 1.0, ease: 'power4.out' }, '-=0.6');
+  }
+
+  // ── Word cycler (case-02 headline) ──
+  (function() {
+    const wcWords = ['learn.', 'test.', 'grow.', 'stretch.', 'build.', 'ship.', 'create.', 'fail.', 'iterate.', 'discover.'];
+    let wcIdx = 0;
+    const wcLine = document.getElementById('wc-line');
+    if (!wcLine) return;
+    let active  = document.getElementById('wc-a');
+    let standby = document.getElementById('wc-b');
+    gsap.set(standby, { y: '110%', position: 'absolute', top: 0, left: 0 });
+
+    function wcCycle() {
+      wcIdx = (wcIdx + 1) % wcWords.length;
+      standby.textContent = wcWords[wcIdx];
+      gsap.set(standby, { y: '110%', position: 'absolute', top: 0, left: 0 });
+
+      const tl = gsap.timeline({
+        onComplete: () => {
+          gsap.set(standby, { clearProps: 'position,top,left' });
+          gsap.set(active,  { y: '110%', position: 'absolute', top: 0, left: 0 });
+          const tmp = active; active = standby; standby = tmp;
+        }
+      });
+      tl
+        .to(active,  { y: '-110%', duration: 0.55, ease: 'power3.in'  }, 0)
+        .to(standby, { y: 0,       duration: 0.65, ease: 'power3.out' }, 0.08);
+    }
+
+    ScrollTrigger.create({
+      trigger: '#case-02-intro',
+      start: 'top 80%',
+      once: true,
+      onEnter: () => setTimeout(() => setInterval(wcCycle, 2600), 1000)
+    });
+  })();
+
+  // ── Case 03 intro ──
+  const case03Intro = document.getElementById('case-03-intro');
+  if (case03Intro) {
+    const c03tl = gsap.timeline({
+      scrollTrigger: { trigger: case03Intro, start: 'top 70%' }
+    });
+    c03tl
+      .to(case03Intro.querySelector('.case-chip'), { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' })
+      .to(case03Intro.querySelectorAll('.def-inner'), { y: 0, duration: 1.0, stagger: 0.12, ease: 'power4.out' }, '-=0.2')
+      .to(case03Intro.querySelector('.c03-intro-links'), { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, '-=0.2');
+  }
+
+
+  // ── Prototyping tips (case-03) ──
+  const tipsAct = document.getElementById('proto-tips-act');
+  if (tipsAct) {
+    const tipsTl = gsap.timeline({
+      scrollTrigger: { trigger: tipsAct, start: 'top 70%' }
+    });
+    tipsTl
+      .to(tipsAct.querySelector('.proto-tips-heading'), { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' })
+      .to(tipsAct.querySelectorAll('.proto-tip'), { opacity: 1, y: 0, duration: 0.5, stagger: 0.12, ease: 'power3.out' }, '-=0.1');
+  }
+
+  // ── Build acts (case-02) ──
+  document.querySelectorAll('.build-act').forEach(act => {
+    const tl = gsap.timeline({
+      scrollTrigger: { trigger: act, start: 'top 72%' }
+    });
+    tl
+      .to(act.querySelector('.case-chip'),  { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' })
+      .to(act.querySelectorAll('.build-act-heading .def-inner'), { y: 0, duration: 1.0, stagger: 0.1, ease: 'power4.out' }, '-=0.15')
+      .to(act.querySelector('.build-act-body'),  { opacity: 1, y: 0, duration: 0.65, ease: 'power3.out' }, '-=0.4')
+      .to(act.querySelector('.build-act-links'), { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, '-=0.3');
+  });
 
   // ── Case 01 acts ──
   document.querySelectorAll('.cs-act').forEach(act => {
