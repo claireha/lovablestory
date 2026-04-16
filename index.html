@@ -1990,6 +1990,13 @@
       .s-image, .cs-screenshot { opacity: 1 !important; transform: translateY(0) !important; }
       .claude-eyebrow, .overview-eyebrow, .tips-eyebrow { opacity: 1 !important; transform: translateY(0) !important; }
       .closing-eyebrow, .closing-title, .closing-body, .closing-meta { opacity: 1 !important; }
+      .intro-greeting { opacity: 1 !important; transform: translateY(0) !important; }
+      .intro-name-inner { transform: translateY(0) !important; }
+      .intro-rule { transform: scaleX(1) !important; }
+      .intro-facts li { opacity: 1 !important; transform: translateY(0) !important; }
+      .intro-photo-main { transform: translateX(0) !important; }
+      .agenda-eyebrow { opacity: 1 !important; transform: translateY(0) !important; }
+      .agenda-row { opacity: 1 !important; transform: translateY(0) !important; }
     }
   </style>
 </head>
@@ -3550,6 +3557,13 @@
     gsap.set('.s-list-item', { opacity: 1, x: 0 });
     gsap.set(['.s-title', '.s-sub'], { opacity: 1, y: 0 });
     gsap.set(['.closing-eyebrow', '.closing-title', '.closing-body', '.closing-meta'], { opacity: 1 });
+    gsap.set('.intro-greeting', { opacity: 1, y: 0 });
+    gsap.set('.intro-name-inner', { y: 0 });
+    gsap.set('.intro-rule', { scaleX: 1 });
+    gsap.set('.intro-facts li', { opacity: 1, y: 0 });
+    gsap.set('.intro-photo-main', { x: 0 });
+    gsap.set('.agenda-eyebrow', { opacity: 1, y: 0 });
+    gsap.set('.agenda-row', { opacity: 1, y: 0 });
     setTimeout(() => { window.print(); lenis.start(); }, 150);
   });
 
