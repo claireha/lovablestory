@@ -1858,6 +1858,34 @@
       border-bottom: 1px solid var(--teal);
     }
 
+    .closing-link-cards {
+      display: flex;
+      gap: 1.2rem;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .closing-link-card {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5em;
+      border: 2px solid var(--accent);
+      box-shadow: 4px 4px 0 var(--accent);
+      border-radius: 4px;
+      padding: 0.9rem 1.4rem;
+      color: var(--light);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      transition: box-shadow 0.15s ease, transform 0.15s ease;
+    }
+
+    .closing-link-card:hover {
+      box-shadow: 2px 2px 0 var(--accent);
+      transform: translate(2px, 2px);
+    }
+
     .closing-meta {
       margin-top: 4rem;
       padding-top: 2rem;
@@ -2276,7 +2304,7 @@
         <span class="def-line"><span class="def-inner">Build to</span></span>
         <span class="def-line"><span class="def-inner">Test.</span></span>
       </h3>
-      <p class="build-act-body">Engineers had mentioned that single-page applications are a reliable source of hard-to-replicate bugs. So I built a SPA our team could use during bug bashes to reproduce issues quickly, without having to set up a test environment from scratch each time.</p>
+      <p class="build-act-body">Engineers had mentioned that single-page applications are a reliable source of hard-to-replicate bugs. So I built a SPA our team could use during bug bashes to reproduce issues quickly.</p>
       <div class="build-act-links">
         <a class="cs-proto-btn" href="https://laundry-lift-spa.lovable.app/" target="_blank">laundry-lift-spa.lovable.app <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-left:2px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
       </div>
@@ -2374,14 +2402,12 @@
   <p class="closing-eyebrow">The Takeaway</p>
   <h2 class="closing-title">You don't need permission to prototype.</h2>
   <p class="closing-body">
-    Lovable isn't a Figma replacement or a production tool. It's a thinking tool — the fastest way to go from an idea in your head to something real that other people can see, click, and react to.
-    <br><br>
-    Use it to learn the product you own. Use it to test edge cases before they surprise engineering. Use it to stretch what you think is possible. Use it to build things that make a meeting better than any doc could.
-    <br><br>
-    The only wrong move is waiting until you have enough time to do it properly. You already have enough time.
-    <br><br>
-    Questions? Find <a href="mailto:cha@hubspot.com">Claire Ha</a> — happy to prototype together.
+    You just need to do it. Be a product manager. Identify problems in your daily life - personal or professional - and just build.
   </p>
+  <div class="closing-link-cards">
+    <a class="closing-link-card" href="https://myboardis.lovable.app/" target="_blank">myboardis.lovable.app <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-left:2px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+    <a class="closing-link-card" href="https://dummy-data.lovable.app/" target="_blank">dummy-data.lovable.app <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-left:2px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+  </div>
   <div class="closing-meta">
     Claire Ha · Product Manager, Live Chat · HubSpot · 2026
   </div>
@@ -2847,8 +2873,9 @@
   closingTl
     .from('.closing-eyebrow', { opacity: 0, y: 14, duration: 0.7 })
     .from('.closing-title',   { opacity: 0, y: 60, duration: 1.1, ease: 'power4.out' }, '-=0.4')
-    .from('.closing-body',    { opacity: 0, y: 30, duration: 0.9, ease: 'power3.out' }, '-=0.5')
-    .from('.closing-meta',    { opacity: 0, duration: 0.7 }, '-=0.2');
+    .from('.closing-body',       { opacity: 0, y: 30, duration: 0.9, ease: 'power3.out' }, '-=0.5')
+    .from('.closing-link-card', { opacity: 0, y: 16, duration: 0.55, stagger: 0.12, ease: 'power3.out' }, '-=0.4')
+    .from('.closing-meta',      { opacity: 0, duration: 0.7 }, '-=0.2');
 
   gsap.to('.closing-ghost', {
     y: -80,
