@@ -602,6 +602,11 @@
       height: 100%;
       min-height: inherit;
       transform-style: preserve-3d;
+      transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .claude-card:hover .card-inner {
+      transform: rotateY(180deg);
     }
 
     .card-face {
@@ -2612,19 +2617,6 @@
     .to('#claude-card-claude', {
       opacity: 1, y: 0, rotation: 0, duration: 0.7, ease: 'back.out(1.4)'
     }, '-=0.45');
-
-  // Card flip on scroll
-  const claudeFlipTl = gsap.timeline({
-    scrollTrigger: {
-      trigger: '#claude',
-      start: 'bottom 70%',
-      end: 'bottom 20%',
-      scrub: 1.5,
-    }
-  });
-  claudeFlipTl
-    .to('#claude-card-lovable .card-inner', { rotateY: 180, ease: 'none' }, 0)
-    .to('#claude-card-claude .card-inner', { rotateY: 180, ease: 'none' }, 0.15);
 
   // ── Tips block 1 ──
   const tipsTl1 = gsap.timeline({
