@@ -81,13 +81,12 @@
 
     /* ── NAV DOTS ── */
     #nav-dots {
-      display: none;
+      display: none !important;
       position: fixed;
       right: 2rem;
       top: 50%;
       transform: translateY(-50%);
       z-index: 150;
-      display: flex;
       flex-direction: column;
       gap: 14px;
     }
@@ -1002,7 +1001,7 @@
     .case {
       padding: 14vh 8vw 16vh;
       position: relative;
-      overflow: hidden;
+      overflow: clip;
     }
 
     .case-01 { background: var(--navy); }
@@ -1347,7 +1346,7 @@
       opacity: 0;
       transform: translateY(24px);
       position: sticky;
-      top: 4vh;
+      top: calc(50vh - 280px);
       align-self: flex-start;
     }
 
@@ -1382,7 +1381,6 @@
       overflow: hidden;
       flex-shrink: 0;
       background: white;
-      border: 1px solid #2D5A4E;
     }
 
     .hw-identity { flex: 1; min-width: 0; }
@@ -1926,8 +1924,8 @@
   <div class="stories-intro-inner">
     <p class="stories-eyebrow">Three stories</p>
     <h2 class="stories-heading">
-      <span class="def-line"><span class="def-inner">Here's how I've</span></span>
-      <span class="def-line"><span class="def-inner">actually used it.</span></span>
+      <span class="def-line"><span class="def-inner">Here's how prototyping</span></span>
+      <span class="def-line"><span class="def-inner">has recently helped me.</span></span>
     </h2>
   </div>
 </section>
@@ -1961,25 +1959,19 @@
         <p class="cs-act-label">The Feedback</p>
         <p class="cs-pivot" style="font-size: clamp(1.8rem, 3.5vw, 4rem); margin-bottom: 4vh; color: var(--lavender);">A customer asked: could the screenshot include the URL?</p>
         <img class="cs-screenshot" src="assets/images/cs1-feedback.png" alt="Slack feedback from Bryony Shelton" />
-        <p class="cs-narrative" style="margin-top: 3vh;">The Screen Capture API only captures what's inside the tab — not the address bar, not anything in the browser's own UI. That's a hard constraint baked into the browser. No web API can reach above the tab.</p>
-        <p class="cs-pivot" style="color: var(--lavender);">So it was time to get creative.</p>
+        <p class="case-desc" style="margin-top: 3vh;">The Screen Capture API only captures what's inside the tab — not the address bar, not anything in the browser's own UI. That's a hard constraint baked into the browser. No web API can reach above the tab.</p>
       </div>
 
       <!-- Act 4: The Prototype -->
-      <div class="cs-act">
+      <div class="cs-act" style="min-height: 100vh; padding-top: 15vh; box-sizing: border-box;">
+        <p class="cs-pivot" style="color: var(--lavender); margin-bottom: 6vh;">So it was time to get creative.</p>
         <p class="cs-act-label">The Prototype</p>
-        <video class="cs-video cs-video-full" autoplay loop muted playsinline style="margin-bottom: 3vh;">
+        <p class="case-desc" style="max-width: 60ch;">So I built a quick Lovable app to explore what was actually possible.<br><br>The idea: capture the tab, then programmatically embed the current URL as an overlay before upload. No browser chrome needed — just the data that matters.<br><br>I shared it with the engineering DRI, exported the Lovable code, and we used it as a working reference to build the real thing.</p>
+        <a class="cs-proto-btn" href="https://tab-snap-tool.lovable.app" target="_blank">tab-snap-tool.lovable.app <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 2px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+        <video class="cs-video cs-video-full" autoplay loop muted playsinline style="margin-top: 3vh;">
           <source src="assets/videos/cs1-prototype.mp4" type="video/mp4">
         </video>
-        <div class="case-grid">
-          <div>
-            <p class="case-desc">So I built a quick Lovable app to explore what was actually possible. The idea: capture the tab, then programmatically embed the current URL as an overlay before upload. No browser chrome needed — just the data that matters.</p>
-            <a class="cs-proto-btn" href="https://tab-snap-tool.lovable.app" target="_blank">tab-snap-tool.lovable.app <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 2px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
-          </div>
-          <div>
-            <img class="cs-screenshot" src="assets/images/cs1-slack.png" alt="Claire sharing the Lovable prototype in Slack" />
-          </div>
-        </div>
+        <img class="cs-screenshot" src="assets/images/cs1-slack.png" alt="Claire sharing the Lovable prototype in Slack" style="margin-top: 3vh;" />
       </div>
 
       <!-- Act 5: The Outcome -->
@@ -2584,15 +2576,37 @@
     lenis.scrollTo(section, { offset, duration: 1.2, easing: t => t < 0.5 ? 2*t*t : -1+(4-2*t)*t });
   }
 
-  nextBtn.addEventListener('click', () => scrollTo(getNextSection()));
+  const ease = t => t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
+  const SNAP_THRESHOLD = 0.35; // snap to section if within 35% of a viewport
+
+  function snapTarget(direction) {
+    const vh = window.innerHeight;
+    const currentY = window.scrollY;
+    const rawTarget = currentY + direction * vh;
+    // Find section boundaries within snap threshold of rawTarget
+    let best = null, bestDist = vh * SNAP_THRESHOLD;
+    for (const s of allSections) {
+      const top = s.offsetTop;
+      // Only consider sections ahead in the scroll direction
+      if (direction > 0 && top <= currentY + vh * 0.1) continue;
+      if (direction < 0 && top >= currentY - vh * 0.1) continue;
+      const dist = Math.abs(top - rawTarget);
+      if (dist < bestDist) { bestDist = dist; best = top; }
+    }
+    return best !== null ? best : rawTarget;
+  }
+
+  nextBtn.addEventListener('click', () => {
+    lenis.scrollTo(snapTarget(1), { duration: 1.2, easing: ease });
+  });
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
       e.preventDefault();
-      scrollTo(getNextSection());
+      lenis.scrollTo(snapTarget(1), { duration: 1.2, easing: ease });
     } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
       e.preventDefault();
-      scrollTo(getPrevSection());
+      lenis.scrollTo(snapTarget(-1), { duration: 1.2, easing: ease });
     }
   });
 
@@ -2751,10 +2765,16 @@
           pendingScreenshot = canvas.toDataURL('image/png');
           previewImg.src = pendingScreenshot;
           preview.classList.add('visible');
-          lenis.start();
+          requestAnimationFrame(() => {
+            window.scrollTo({ top: savedY, behavior: 'instant' });
+            requestAnimationFrame(() => lenis.start());
+          });
         };
       } catch (e) {
-        lenis.start();
+        requestAnimationFrame(() => {
+          window.scrollTo({ top: savedY, behavior: 'instant' });
+          requestAnimationFrame(() => lenis.start());
+        });
       }
     });
 
