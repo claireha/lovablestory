@@ -81,6 +81,7 @@
 
     /* ── NAV DOTS ── */
     #nav-dots {
+      display: none;
       position: fixed;
       right: 2rem;
       top: 50%;
@@ -604,8 +605,8 @@
       margin-bottom: 1.8rem;
     }
 
-    #claude-card-lovable .claude-card-label { color: var(--accent); }
-    #claude-card-claude  .claude-card-label { color: var(--teal); }
+    .claude-card-label { color: var(--lavender); }
+    .claude-card:hover .claude-card-label { color: var(--accent); }
 
     .claude-card-body {
       font-size: clamp(1rem, 1.6vw, 1.4rem);
@@ -690,7 +691,7 @@
     /* ── TIPS ── */
     #tips {
       background: var(--bg-light);
-      padding: 0 8vw 20vh;
+      padding: 0 8vw;
     }
 
     #tips-block-1 {
@@ -700,6 +701,22 @@
       justify-content: center;
       padding: 14vh 0 16vh;
       margin-bottom: 0;
+    }
+
+    .tips-block-2-wrap {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 10vh 0;
+    }
+
+    .tips-closing-wrap {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 10vh 0;
     }
 
     .tips-eyebrow {
@@ -777,8 +794,6 @@
     }
 
     .tips-closing {
-      margin-top: 10vh;
-      margin-bottom: 28vh;
       display: flex;
       flex-direction: column;
       gap: 2vh;
@@ -935,7 +950,8 @@
 
     /* ── SECTION DIVIDERS ── */
     .s-divider {
-      padding: 18vh 8vw;
+      min-height: 100vh;
+      padding: 0 8vw;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1099,11 +1115,13 @@
       font-weight: 700;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--rose);
+      color: var(--muted);
       margin-bottom: 3vh;
       opacity: 0;
       transform: translateY(8px);
     }
+
+    .case-02 .cs-act-label { color: var(--rose); }
 
     .cs-quote-block {
       max-width: 72ch;
@@ -1215,6 +1233,32 @@
 
     .cs-link:hover { opacity: 0.7; }
 
+    .cs-proto-btn {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 0.6em 1.4em;
+      background: #fff;
+      color: var(--ink);
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      border: 2px solid var(--accent);
+      border-radius: 4px;
+      box-shadow: 6px 6px 0 var(--accent);
+      transition: box-shadow 0.15s ease, transform 0.15s ease;
+    }
+
+    .cs-proto-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 8px 8px 0 var(--accent);
+    }
+
+    .cs-proto-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 4px 4px 0 var(--accent);
+    }
+
     .cs-inline-link {
       color: var(--lavender);
       text-decoration: none;
@@ -1302,6 +1346,9 @@
       box-shadow: 11px 11px 0 #000;
       opacity: 0;
       transform: translateY(24px);
+      position: sticky;
+      top: 4vh;
+      align-self: flex-start;
     }
 
     .hw-header {
@@ -1335,6 +1382,7 @@
       overflow: hidden;
       flex-shrink: 0;
       background: white;
+      border: 1px solid #2D5A4E;
     }
 
     .hw-identity { flex: 1; min-width: 0; }
@@ -1845,27 +1893,31 @@
     </div>
   </div>
 
-  <div class="tips-block" id="tips-block-2">
-    <p class="tips-block-num">02</p>
-    <h2 class="tips-block-heading">
-      <span class="def-inner">Learn to get good</span>
-      <span class="def-inner">at both.</span>
-    </h2>
-    <div class="tips-sub-list">
-      <div class="tips-sub-row">
-        <span class="tips-sub-arrow">→</span>
-        <span class="tips-sub-text">They are two distinct and powerful tools at your disposal.</span>
-      </div>
-      <div class="tips-sub-row">
-        <span class="tips-sub-arrow">→</span>
-        <span class="tips-sub-text">The more you use both, the more you'll know when to reach for one over the other.</span>
+  <div class="tips-block-2-wrap" id="tips-block-2">
+    <div class="tips-block">
+      <p class="tips-block-num">02</p>
+      <h2 class="tips-block-heading">
+        <span class="def-inner">Learn to get good</span>
+        <span class="def-inner">at both.</span>
+      </h2>
+      <div class="tips-sub-list">
+        <div class="tips-sub-row">
+          <span class="tips-sub-arrow">→</span>
+          <span class="tips-sub-text">They are two distinct and powerful tools at your disposal.</span>
+        </div>
+        <div class="tips-sub-row">
+          <span class="tips-sub-arrow">→</span>
+          <span class="tips-sub-text">The more you use both, the more you'll know when to reach for one over the other.</span>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="tips-closing">
-    <p class="tips-closing-line"><span>A lot of it comes down to preference.</span></p>
-    <p class="tips-closing-line"><span>The landscape is constantly changing.</span></p>
+  <div class="tips-closing-wrap">
+    <div class="tips-closing">
+      <p class="tips-closing-line"><span>A lot of it comes down to preference.</span></p>
+      <p class="tips-closing-line"><span>The landscape is constantly changing.</span></p>
+    </div>
   </div>
 </section>
 
@@ -1884,7 +1936,7 @@
 <section class="s-divider s-divider-01" id="div-01">
   <span class="s-divider-bg">01</span>
   <div class="s-divider-inner">
-    <p class="s-num">Case Study 01 of 03</p>
+    <p class="s-num">Example 01 of 03</p>
     <h2 class="s-title">Micro Feature<br>Prototypes</h2>
     <p class="s-sub">When you just want to spin up something quick to show one tiny feature</p>
   </div>
@@ -1893,38 +1945,66 @@
 <!-- ═══════════ CASE 01 BODY ═══════════ -->
 <section class="case case-01" id="case-01">
   <div class="case-bg-num">01</div>
-  <div class="case-chip">Case Study 01</div>
+  <div class="case-chip">Example 01</div>
 
-  <h2 class="case-title">A customer asked. We prototyped it the same day.</h2>
-
-  <!-- Act 1: The Feature -->
-  <div class="cs-act">
-    <p class="cs-act-label">The Feature</p>
-    <div class="hw-wrap">
-      <div class="hw-desc">
-        <p class="case-desc">We <a class="cs-inline-link" href="https://app.hubspot.com/l/product-updates/?rollout=298923" target="_blank">shipped screen capture to the Live Chat widget</a>.<br><br>With one click, visitors on desktop and tablet can take and attach a screenshot directly to their chat conversation. It's simple enough for anyone to use, regardless of technical experience.<br><br>Less friction for the visitor, more context for the agent.<br><br>👉 Try using the screen capture feature on the widget to the right. It uses the Screen Capture API.</p>
+  <!-- Act 1: The Feature — title + desc left, widget right -->
+  <div class="hw-wrap" style="align-items: flex-start; margin-top: 4vh;">
+    <div class="hw-desc">
+      <h2 class="case-title" style="margin-bottom: 4vh;">A customer asked. We prototyped it the same day.</h2>
+      <div class="cs-act" style="border-top: none; padding-top: 0;">
+        <p class="cs-act-label">The Feature</p>
+        <p class="case-desc">We <a class="cs-inline-link" href="https://app.hubspot.com/l/product-updates/?rollout=298923" target="_blank">shipped a new screen capture feature for the Live Chat widget</a>.<br><br>With one click, visitors on desktop and tablet can take and attach a screenshot directly to their chat conversation. It's simple enough for anyone to use, regardless of technical experience.<br><br>Less friction for the visitor, more context for the agent.</p>
       </div>
-      <div class="hw-widget" id="hw-widget">
+
+      <!-- Act 2: The Feedback -->
+      <div class="cs-act">
+        <p class="cs-act-label">The Feedback</p>
+        <p class="cs-pivot" style="font-size: clamp(1.8rem, 3.5vw, 4rem); margin-bottom: 4vh; color: var(--lavender);">A customer asked: could the screenshot include the URL?</p>
+        <img class="cs-screenshot" src="assets/images/cs1-feedback.png" alt="Slack feedback from Bryony Shelton" />
+        <p class="cs-narrative" style="margin-top: 3vh;">The Screen Capture API only captures what's inside the tab — not the address bar, not anything in the browser's own UI. That's a hard constraint baked into the browser. No web API can reach above the tab.</p>
+        <p class="cs-pivot" style="color: var(--lavender);">So it was time to get creative.</p>
+      </div>
+
+      <!-- Act 4: The Prototype -->
+      <div class="cs-act">
+        <p class="cs-act-label">The Prototype</p>
+        <video class="cs-video cs-video-full" autoplay loop muted playsinline style="margin-bottom: 3vh;">
+          <source src="assets/videos/cs1-prototype.mp4" type="video/mp4">
+        </video>
+        <div class="case-grid">
+          <div>
+            <p class="case-desc">So I built a quick Lovable app to explore what was actually possible. The idea: capture the tab, then programmatically embed the current URL as an overlay before upload. No browser chrome needed — just the data that matters.</p>
+            <a class="cs-proto-btn" href="https://tab-snap-tool.lovable.app" target="_blank">tab-snap-tool.lovable.app <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 2px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+          </div>
+          <div>
+            <img class="cs-screenshot" src="assets/images/cs1-slack.png" alt="Claire sharing the Lovable prototype in Slack" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Act 5: The Outcome -->
+      <div class="cs-act">
+        <p class="cs-act-label">The Outcome</p>
+        <img class="cs-screenshot" src="assets/images/cs1-email.png" alt="Email reply from Bryony" />
+      </div>
+    </div>
+    <div class="hw-widget" id="hw-widget">
         <div class="hw-header">
           <button class="hw-icon-btn" aria-label="Back">
             <svg width="9" height="15" viewBox="0 0 9 15" fill="none"><path d="M8 1L1 7.5L8 14" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
           <div class="hw-logo-circle">
             <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="80" height="80" fill="#C44E1A"/>
-              <path d="M40 6 L70 20 L70 50 Q70 66 40 74 Q10 66 10 50 L10 20 Z" fill="#C44E1A" stroke="white" stroke-width="2"/>
-              <path d="M22 52 L22 64 L58 64 L58 52 L40 38 Z" fill="white"/>
-              <rect x="34" y="54" width="12" height="10" rx="1.5" fill="#C44E1A"/>
-              <ellipse cx="40" cy="34" rx="11" ry="10" fill="white"/>
-              <ellipse cx="30" cy="27" rx="5.5" ry="8" fill="white" transform="rotate(-18,30,27)"/>
-              <ellipse cx="50" cy="27" rx="5.5" ry="8" fill="white" transform="rotate(18,50,27)"/>
-              <circle cx="36.5" cy="33" r="2" fill="#C44E1A"/>
-              <circle cx="43.5" cy="33" r="2" fill="#C44E1A"/>
-              <ellipse cx="40" cy="37.5" rx="2.8" ry="2" fill="#C44E1A"/>
+              <rect width="80" height="80" fill="#4A7C63"/>
+              <path d="M28 62 L30 70 L50 70 L52 62 Z" fill="white"/>
+              <rect x="26" y="58" width="28" height="6" rx="3" fill="white"/>
+              <path d="M40 58 L40 34" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M40 48 C38 44 30 42 24 34 C31 32 39 41 40 46 Z" fill="white"/>
+              <path d="M40 40 C42 36 50 34 56 26 C49 24 41 33 40 38 Z" fill="white"/>
             </svg>
           </div>
           <div class="hw-identity">
-            <span class="hw-name">Second Chance D...</span>
+            <span class="hw-name">Zen Plant Care</span>
             <span class="hw-powered">Powered by AI</span>
           </div>
           <button class="hw-icon-btn" aria-label="Close">
@@ -1935,16 +2015,12 @@
           <div class="hw-msg-row">
             <div class="hw-msg-icon">
               <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="80" height="80" fill="#C44E1A"/>
-                <path d="M40 6 L70 20 L70 50 Q70 66 40 74 Q10 66 10 50 L10 20 Z" fill="#C44E1A" stroke="white" stroke-width="2"/>
-                <path d="M22 52 L22 64 L58 64 L58 52 L40 38 Z" fill="white"/>
-                <rect x="34" y="54" width="12" height="10" rx="1.5" fill="#C44E1A"/>
-                <ellipse cx="40" cy="34" rx="11" ry="10" fill="white"/>
-                <ellipse cx="30" cy="27" rx="5.5" ry="8" fill="white" transform="rotate(-18,30,27)"/>
-                <ellipse cx="50" cy="27" rx="5.5" ry="8" fill="white" transform="rotate(18,50,27)"/>
-                <circle cx="36.5" cy="33" r="2" fill="#C44E1A"/>
-                <circle cx="43.5" cy="33" r="2" fill="#C44E1A"/>
-                <ellipse cx="40" cy="37.5" rx="2.8" ry="2" fill="#C44E1A"/>
+                <rect width="80" height="80" fill="#4A7C63"/>
+                <path d="M28 62 L30 70 L50 70 L52 62 Z" fill="white"/>
+                <rect x="26" y="58" width="28" height="6" rx="3" fill="white"/>
+                <path d="M40 58 L40 34" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M40 48 C38 44 30 42 24 34 C31 32 39 41 40 46 Z" fill="white"/>
+                <path d="M40 40 C42 36 50 34 56 26 C49 24 41 33 40 38 Z" fill="white"/>
               </svg>
             </div>
             <div class="hw-bubble hw-bubble-bot">Got any questions? I'm happy to help.</div>
@@ -1969,50 +2045,6 @@
           </div>
           <p class="hw-disclaimer">Spam protection enabled; AI-generated content may be inaccurate.</p>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Act 2: The Feedback -->
-  <div class="cs-act">
-    <p class="cs-act-label">The Feedback</p>
-    <p class="cs-pivot" style="font-size: clamp(1.8rem, 3.5vw, 4rem); margin-bottom: 4vh;">A customer asked: could the screenshot include the URL?</p>
-    <img class="cs-screenshot" src="assets/images/cs1-feedback.png" alt="Slack feedback from Bryony Shelton" />
-    <p class="cs-constraint-inline">The Screen Capture API captures only the tab's rendered content — not the address bar, not the browser chrome. This is a hard browser restriction. No web API can access the browser UI.</p>
-    <p class="cs-pivot">So it was time to get creative.</p>
-  </div>
-
-  <!-- Act 4: The Prototype -->
-  <div class="cs-act">
-    <p class="cs-act-label">The Prototype</p>
-    <div class="case-grid">
-      <div>
-        <p class="case-desc">So I built a quick Lovable app to explore what was actually possible. The idea: capture the tab, then programmatically embed the current URL as an overlay before upload. No browser chrome needed — just the data that matters.</p>
-        <a class="cs-link cs-inline-link" href="https://tab-snap-tool.lovable.app" target="_blank">tab-snap-tool.lovable.app</a>
-      </div>
-      <div>
-        <img class="cs-screenshot" src="assets/images/cs1-slack.png" alt="Claire sharing the Lovable prototype in Slack" />
-      </div>
-    </div>
-    <video class="cs-video cs-video-full" autoplay loop muted playsinline>
-      <source src="assets/videos/cs1-prototype.mp4" type="video/mp4">
-    </video>
-  </div>
-
-  <!-- Act 5: The Outcome -->
-  <div class="cs-act">
-    <p class="cs-act-label">The Outcome</p>
-    <div class="case-grid">
-      <div>
-        <div class="aha-card">
-          <p class="aha-eyebrow">The customer's response</p>
-          <p class="aha-quote">"Yes I saw this the other day — fantastic! Thanks so much. Finding this feature really helpful already."</p>
-          <p class="aha-attr">Bryony Shelton</p>
-        </div>
-      </div>
-      <div>
-        <img class="cs-screenshot" src="assets/images/cs1-email.png" alt="Email reply from Bryony" />
-      </div>
     </div>
   </div>
 
@@ -2022,7 +2054,7 @@
 <section class="s-divider s-divider-02" id="div-02">
   <span class="s-divider-bg">02</span>
   <div class="s-divider-inner">
-    <p class="s-num">Case Study 02 of 03</p>
+    <p class="s-num">Example 02 of 03</p>
     <h2 class="s-title">Add a<br>Feature</h2>
     <p class="s-sub">Isolating one change without rebuilding everything</p>
   </div>
@@ -2060,7 +2092,7 @@
 <section class="s-divider s-divider-03" id="div-03">
   <span class="s-divider-bg">03</span>
   <div class="s-divider-inner">
-    <p class="s-num">Case Study 03 of 03</p>
+    <p class="s-num">Example 03 of 03</p>
     <h2 class="s-title">Dogfood</h2>
     <p class="s-sub">Experiencing your own product as a customer</p>
   </div>
@@ -2392,9 +2424,14 @@
     .to(act.querySelectorAll('.cs-quote-block, .cs-constraint-text, .case-desc, .aha-card, .cs-narrative, .cs-constraint-inline, .cs-pivot'), {
       opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power3.out'
     }, '-=0.1')
-    .to(act.querySelectorAll('.cs-screenshot, .hw-widget'), {
+    .to(act.querySelectorAll('.cs-screenshot'), {
       opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out'
     }, '-=0.4');
+  });
+
+  gsap.to('#hw-widget', {
+    opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+    scrollTrigger: { trigger: '#case-01', start: 'top 90%' }
   });
 
   // ── Bridge ──
@@ -2504,11 +2541,13 @@
   const overviewIdx = baseSections.findIndex(s => s.id === 'overview');
   const tipsIdx = baseSections.findIndex(s => s.id === 'tips');
   const tipsBlock2 = document.getElementById('tips-block-2');
+  const tipsClosingWrap = document.querySelector('.tips-closing-wrap');
   const allSections = [
     ...baseSections.slice(0, overviewIdx + 1),
     appreciateStop,
     ...baseSections.slice(overviewIdx + 1, tipsIdx + 1),
     ...(tipsBlock2 ? [tipsBlock2] : []),
+    ...(tipsClosingWrap ? [tipsClosingWrap] : []),
     ...baseSections.slice(tipsIdx + 1)
   ];
 
@@ -2624,7 +2663,7 @@
     const sendBtn = document.getElementById('hw-send');
     if (!msgBody || !input || !sendBtn) return;
 
-    const logoSvg = `<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="80" height="80" fill="#C44E1A"/><path d="M40 6 L70 20 L70 50 Q70 66 40 74 Q10 66 10 50 L10 20 Z" fill="#C44E1A" stroke="white" stroke-width="2"/><path d="M22 52 L22 64 L58 64 L58 52 L40 38 Z" fill="white"/><rect x="34" y="54" width="12" height="10" rx="1.5" fill="#C44E1A"/><ellipse cx="40" cy="34" rx="11" ry="10" fill="white"/><ellipse cx="30" cy="27" rx="5.5" ry="8" fill="white" transform="rotate(-18,30,27)"/><ellipse cx="50" cy="27" rx="5.5" ry="8" fill="white" transform="rotate(18,50,27)"/><circle cx="36.5" cy="33" r="2" fill="#C44E1A"/><circle cx="43.5" cy="33" r="2" fill="#C44E1A"/><ellipse cx="40" cy="37.5" rx="2.8" ry="2" fill="#C44E1A"/></svg>`;
+    const logoSvg = `<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="80" height="80" fill="#4A7C63"/><path d="M28 62 L30 70 L50 70 L52 62 Z" fill="white"/><rect x="26" y="58" width="28" height="6" rx="3" fill="white"/><path d="M40 58 L40 34" stroke="white" stroke-width="2.5" stroke-linecap="round"/><path d="M40 48 C38 44 30 42 24 34 C31 32 39 41 40 46 Z" fill="white"/><path d="M40 40 C42 36 50 34 56 26 C49 24 41 33 40 38 Z" fill="white"/></svg>`;
 
     const replies = [
       "We'd love to help! Are you looking to adopt a dog, cat, or another animal?",
@@ -2713,11 +2752,9 @@
           previewImg.src = pendingScreenshot;
           preview.classList.add('visible');
           lenis.start();
-          window.scrollTo({ top: savedY, behavior: 'instant' });
         };
       } catch (e) {
         lenis.start();
-        window.scrollTo({ top: savedY, behavior: 'instant' });
       }
     });
 
