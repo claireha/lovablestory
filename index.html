@@ -2993,16 +2993,16 @@
   }
 
   nextBtn.addEventListener('click', () => {
-    lenis.scrollTo(snapTarget(1), { duration: 1.2, easing: ease });
+    scrollTo(getNextSection());
   });
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
       e.preventDefault();
-      lenis.scrollTo(snapTarget(1), { duration: 1.2, easing: ease });
+      scrollTo(getNextSection());
     } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
       e.preventDefault();
-      lenis.scrollTo(snapTarget(-1), { duration: 1.2, easing: ease });
+      scrollTo(getPrevSection());
     }
   });
 
