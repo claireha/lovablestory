@@ -2218,13 +2218,13 @@
       </div>
 
       <!-- Act 3: The Constraint -->
-      <div class="cs-act cs-act-constraint" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box;">
+      <div class="cs-act cs-act-constraint" id="cs-act-constraint" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box;">
         <p class="cs-act-label">The Problem</p>
         <p class="cs-constraint-text">The Screen Capture API captures only the tab's rendered content. Not the address bar. Not the browser chrome. This is a hard browser restriction — no web API can access the browser UI.</p>
       </div>
 
       <!-- Act 4: The Prototype -->
-      <div class="cs-act" id="cs-act-prototype" style="padding-top: 6vh;">
+      <div class="cs-act" id="cs-act-prototype" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box; padding-top: 6vh;">
         <p class="cs-pivot" style="color: #fff; margin-bottom: 6vh;">So it was time to get creative.</p>
         <p class="cs-act-label">The Prototype</p>
         <p class="case-desc" style="max-width: 60ch;">So I built a quick Lovable app to explore what was actually possible.<br><br>The idea: capture the tab, then programmatically embed the current URL as an overlay before upload. No browser chrome needed — just the data that matters.<br><br>I shared it with the engineering DRI, exported the Lovable code, and we used it as a working reference to build the real thing.</p>
@@ -2930,9 +2930,12 @@
   // Inject appreciate-stop as an intermediate stop after #overview
   const overviewIdx = baseSections.findIndex(s => s.id === 'overview');
   const tipsIdx = baseSections.findIndex(s => s.id === 'tips');
+  const case01Idx = baseSections.findIndex(s => s.id === 'case-01');
   const case02Idx = baseSections.findIndex(s => s.id === 'case-02');
   const tipsBlock2 = document.getElementById('tips-block-2');
   const tipsClosingWrap = document.querySelector('.tips-closing-wrap');
+  const case01Acts = ['cs-act-feedback', 'cs-act-constraint', 'cs-act-prototype', 'cs-act-outcome']
+    .map(id => document.getElementById(id)).filter(Boolean);
   const buildActs = ['build-act-01', 'build-act-02', 'build-act-03', 'build-act-video']
     .map(id => document.getElementById(id)).filter(Boolean);
   const allSections = [
@@ -2941,7 +2944,9 @@
     ...baseSections.slice(overviewIdx + 1, tipsIdx + 1),
     ...(tipsBlock2 ? [tipsBlock2] : []),
     ...(tipsClosingWrap ? [tipsClosingWrap] : []),
-    ...baseSections.slice(tipsIdx + 1, case02Idx + 1),
+    ...baseSections.slice(tipsIdx + 1, case01Idx + 1),
+    ...case01Acts,
+    ...baseSections.slice(case01Idx + 1, case02Idx + 1),
     ...buildActs,
     ...baseSections.slice(case02Idx + 1)
   ];
