@@ -2946,10 +2946,14 @@
     ...baseSections.slice(case02Idx + 1)
   ];
 
+  function getDocTop(el) {
+    return el.getBoundingClientRect().top + window.scrollY;
+  }
+
   function getNextSection() {
     const scrollY = window.scrollY + window.innerHeight * 0.3;
     for (let i = allSections.length - 1; i >= 0; i--) {
-      if (allSections[i].offsetTop <= scrollY) {
+      if (getDocTop(allSections[i]) <= scrollY) {
         return allSections[i + 1] || null;
       }
     }
@@ -2959,7 +2963,7 @@
   function getPrevSection() {
     const scrollY = window.scrollY + window.innerHeight * 0.3;
     for (let i = allSections.length - 1; i >= 0; i--) {
-      if (allSections[i].offsetTop < scrollY - 50) {
+      if (getDocTop(allSections[i]) < scrollY - 50) {
         return allSections[i] || null;
       }
     }
