@@ -1197,6 +1197,8 @@
       transform: translateY(14px);
     }
 
+    .build-act .case-chip { align-self: flex-start; }
+
     /* ── Word cycler (case-02 headline) ── */
     .wc-line {
       display: block;
@@ -2201,7 +2203,7 @@
 
     <!-- Build to Learn -->
     <div class="build-act" id="build-act-01">
-      <div class="case-chip" style="opacity: 0; transform: translateY(10px);">Example 2</div>
+      <div class="case-chip" style="opacity: 0; transform: translateY(10px);">Example 02</div>
       <h3 class="build-act-heading">
         <span class="def-line"><span class="def-inner">Build to</span></span>
         <span class="def-line"><span class="def-inner">Learn.</span></span>
@@ -2214,7 +2216,7 @@
 
     <!-- Build to Test -->
     <div class="build-act" id="build-act-02">
-      <div class="case-chip" style="opacity: 0; transform: translateY(10px);">Example 3</div>
+      <div class="case-chip" style="opacity: 0; transform: translateY(10px);">Example 03</div>
       <h3 class="build-act-heading">
         <span class="def-line"><span class="def-inner">Build to</span></span>
         <span class="def-line"><span class="def-inner">Test.</span></span>
@@ -2227,7 +2229,7 @@
 
     <!-- Build to Stretch -->
     <div class="build-act" id="build-act-03">
-      <div class="case-chip" style="opacity: 0; transform: translateY(10px);">Example 4</div>
+      <div class="case-chip" style="opacity: 0; transform: translateY(10px);">Example 04</div>
       <h3 class="build-act-heading">
         <span class="def-line"><span class="def-inner">Build to</span></span>
         <span class="def-line"><span class="def-inner">Stretch.</span></span>
@@ -2642,9 +2644,9 @@
 
     ScrollTrigger.create({
       trigger: '#case-02-intro',
-      start: 'top 80%',
+      start: 'top 90%',
       once: true,
-      onEnter: () => setTimeout(() => setInterval(wcCycle, 2600), 1000)
+      onEnter: () => setTimeout(() => setInterval(wcCycle, 2600), 300)
     });
   })();
 
