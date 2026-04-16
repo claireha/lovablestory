@@ -1925,6 +1925,103 @@
     /* ── UTILITY ── */
     .overflow-clip { overflow: hidden; }
 
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+
+      /* Hero */
+      .hero-title { font-size: clamp(3rem, 14vw, 5rem); }
+      #hero { padding: 0 6vw 10vh; }
+      #presenter-notes-btn { display: none; }
+
+      /* Intro: stack vertically, hide photo */
+      #intro {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+      .intro-left { padding: 10vh 6vw 6vh; }
+      .intro-right { display: none; }
+      .intro-name { font-size: clamp(3.5rem, 18vw, 6rem); }
+
+      /* Agenda: hide the description column */
+      .agenda-desc { display: none; }
+      .agenda-title { font-size: clamp(1.8rem, 8vw, 3rem); }
+
+      /* Overview */
+      .overview-video-wrap { width: 100%; }
+      .overview-question { font-size: clamp(2.4rem, 10vw, 5rem); }
+      .overview-definition { font-size: clamp(2rem, 8vw, 4rem); }
+
+      /* Claude cards: single column, disable 3D flip (position:absolute faces cause overflow) */
+      .claude-cards { grid-template-columns: 1fr; gap: 1.5rem; }
+      .claude-card { min-height: unset; height: auto; }
+      .card-inner {
+        transform-style: flat;
+        transition: none;
+        height: auto;
+        min-height: unset;
+      }
+      .claude-card:hover .card-inner { transform: none; }
+      .card-face {
+        position: static;
+        backface-visibility: visible;
+        -webkit-backface-visibility: visible;
+      }
+      .card-back { display: none; }
+
+      /* Problem: hide the giant decorative number */
+      .problem-count { display: none; }
+      .problem-sticky { padding: 0 6vw; }
+
+      /* Case grid already handles mobile via its own @media */
+
+      /* Chat widget: move above content, non-sticky, then description scrolls below */
+      .hw-wrap {
+        flex-direction: column-reverse;
+        gap: 4vh;
+        margin-top: 4vh;
+      }
+      .hw-widget {
+        width: 100%;
+        max-width: 380px;
+        height: 480px;
+        position: relative;
+        top: auto;
+        align-self: center;
+        order: -1;
+      }
+
+      /* Build acts and case intros: tighten padding */
+      .build-act { padding: 0 6vw; }
+      #case-02-intro,
+      #case-03-intro { padding: 0 6vw; }
+
+      /* Section dividers: smaller type */
+      .s-title { font-size: clamp(2.8rem, 12vw, 5rem); }
+      .s-divider-bg { font-size: 60vw; }
+
+      /* General padding reduction */
+      #overview,
+      #claude,
+      #tips,
+      #bridge,
+      #stories-intro,
+      #closing { padding-left: 6vw; padding-right: 6vw; }
+      .case { padding: 10vh 6vw 12vh; }
+
+      /* Closing link cards: wrap nicely */
+      .closing-link-cards { flex-direction: column; }
+      .closing-link-card { width: fit-content; }
+
+      /* Next button: keep it but shift inward */
+      #next-btn { bottom: 1.5rem; right: 1.5rem; }
+    }
+
+    /* Very small screens */
+    @media (max-width: 400px) {
+      .hero-title { font-size: clamp(2.6rem, 15vw, 3.5rem); }
+      .intro-name { font-size: clamp(3rem, 20vw, 5rem); }
+    }
+
   </style>
 </head>
 <body>
