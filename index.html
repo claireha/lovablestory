@@ -3218,26 +3218,52 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
-      background: #0e0e0e;
-      color: #e0e0e0;
-      padding: 2.5rem 2rem;
+      background: #fff;
+      color: #111;
+      padding: 0 2rem 2.5rem;
       font-size: 14px;
       line-height: 1.75;
     }
-    h1 {
-      font-size: 0.75rem;
+    .toolbar {
+      position: sticky;
+      top: 0;
+      background: #fff;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 0.75rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      z-index: 10;
+    }
+    .toolbar-label {
+      font-size: 0.65rem;
       font-weight: 700;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: #ff2f00;
-      margin-bottom: 2.5rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid #222;
+      color: #111;
+      flex: 1;
     }
+    .size-btn {
+      width: 28px;
+      height: 28px;
+      border: 1px solid #ccc;
+      background: #fff;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 1rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #111;
+    }
+    .size-btn:hover { background: #f0f0f0; }
+    h1 { display: none; }
     .note {
-      margin-bottom: 2.2rem;
-      padding-bottom: 2.2rem;
-      border-bottom: 1px solid #1c1c1c;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #e8e8e8;
     }
     .note:last-child { border-bottom: none; margin-bottom: 0; }
     .note-label {
@@ -3245,15 +3271,31 @@
       font-weight: 700;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: #ff2f00;
-      margin-bottom: 0.55rem;
+      color: #999;
+      margin-bottom: 0.5rem;
     }
-    .note-text { color: #c8c8c8; }
-    .note-text strong { color: #fff; font-weight: 600; }
+    .note-text { color: #111; }
+    .note-text strong { font-weight: 700; }
   </style>
 </head>
 <body>
-  <h1>Presenter Notes &mdash; Lovable for HubSpot PMs</h1>
+  <div class="toolbar">
+    <span class="toolbar-label">Presenter Notes</span>
+    <button class="size-btn" id="btn-minus">&#8722;</button>
+    <button class="size-btn" id="btn-plus">&#43;</button>
+  </div>
+  <script>
+    var size = 14;
+    document.getElementById('btn-plus').onclick = function() {
+      size = Math.min(size + 1, 24);
+      document.body.style.fontSize = size + 'px';
+    };
+    document.getElementById('btn-minus').onclick = function() {
+      size = Math.max(size - 1, 10);
+      document.body.style.fontSize = size + 'px';
+    };
+  <\/script>
+  <h1>Presenter Notes</h1>
 
   <div class="note">
     <div class="note-label">Hero &mdash; Opening</div>
