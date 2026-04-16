@@ -2208,7 +2208,7 @@
       </div>
 
       <!-- Act 2: The Feedback -->
-      <div class="cs-act" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box;">
+      <div class="cs-act" id="cs-act-feedback" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box;">
         <p class="cs-act-label">The Feedback</p>
         <p class="cs-pivot" style="font-size: clamp(1.8rem, 3.5vw, 4rem); margin-bottom: 4vh; color: #fff;">Could the screenshot include the URL?</p>
         <img class="cs-screenshot" src="assets/images/cs1-feedback.png" alt="Slack feedback from Bryony Shelton" />
@@ -2228,7 +2228,7 @@
       </div>
 
       <!-- Act 5: The Outcome -->
-      <div class="cs-act" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box;">
+      <div class="cs-act" id="cs-act-outcome" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box;">
         <p class="cs-act-label">The Outcome</p>
         <p class="cs-pivot" style="color: #fff; margin-bottom: 3vh;">Fast feedback loop. Happy customer.</p>
         <p class="case-desc" style="max-width: 52ch;">The feedback came in, we prototyped the solution with Lovable, handed off the code to engineering, and shipped it.<br><br>Bryony's response says the rest.</p>
@@ -3207,9 +3207,48 @@
   })();
 
   // ── Presenter Notes ──
+  let notesWin = null;
+
+  function syncNote(id) {
+    if (notesWin && !notesWin.closed) notesWin.postMessage(id, '*');
+  }
+
+  const noteSyncMap = [
+    { trigger: '#hero',             note: 'note-hero' },
+    { trigger: '#intro',            note: 'note-intro' },
+    { trigger: '#agenda',           note: 'note-agenda' },
+    { trigger: '#overview',         note: 'note-overview' },
+    { trigger: '#appreciate-stop',  note: 'note-appreciate' },
+    { trigger: '#claude',           note: 'note-claude' },
+    { trigger: '#stories-intro',    note: 'note-examples' },
+    { trigger: '#div-01',           note: 'note-ex01-feature' },
+    { trigger: '#cs-act-feedback',  note: 'note-ex01-feedback' },
+    { trigger: '#cs-act-prototype', note: 'note-ex01-prototype' },
+    { trigger: '#cs-act-outcome',   note: 'note-ex01-outcome' },
+    { trigger: '#div-02',           note: 'note-ex02' },
+    { trigger: '#build-act-01',     note: 'note-build-learn' },
+    { trigger: '#build-act-02',     note: 'note-build-test' },
+    { trigger: '#build-act-03',     note: 'note-build-stretch' },
+    { trigger: '#div-03',           note: 'note-ex03' },
+    { trigger: '#proto-tips-act',   note: 'note-tips' },
+    { trigger: '#closing',          note: 'note-closing' },
+  ];
+
+  noteSyncMap.forEach(({ trigger, note }) => {
+    const el = document.querySelector(trigger);
+    if (!el) return;
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 55%',
+      end: 'bottom 55%',
+      onEnter:     () => syncNote(note),
+      onEnterBack: () => syncNote(note),
+    });
+  });
+
   document.getElementById('presenter-notes-btn').addEventListener('click', () => {
-    const w = window.open('', 'presenter-notes', 'width=680,height=920,resizable=yes,scrollbars=yes');
-    w.document.write(`<!DOCTYPE html>
+    notesWin = window.open('', 'presenter-notes', 'width=680,height=920,resizable=yes,scrollbars=yes');
+    notesWin.document.write(`<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -3295,101 +3334,113 @@
       document.body.style.fontSize = size + 'px';
     };
   <\/script>
+  <script>
+    window.addEventListener('message', function(e) {
+      var el = document.getElementById(e.data);
+      if (!el) return;
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.querySelectorAll('.note').forEach(function(n) { n.classList.remove('active'); });
+      el.classList.add('active');
+    });
+  <\/script>
+  <style>
+    .note.active { background: #f5f5f5; border-radius: 4px; padding: 0.75rem; margin: -0.75rem -0.75rem 1.45rem; }
+  <\/style>
   <h1>Presenter Notes</h1>
 
-  <div class="note">
+  <div class="note" id="note-hero">
     <div class="note-label">Hero &mdash; Opening</div>
     <p class="note-text">Welcome everyone. This is a talk about Lovable, an AI prototyping tool I've been using pretty obsessively over the past few months. My goal today isn't to convince you it's perfect. It's to show you what's actually possible, share how it's changed how I work, and get you building something before you leave.</p>
   </div>
 
-  <div class="note">
+  <div class="note" id="note-intro">
     <div class="note-label">Intro &mdash; Who I Am</div>
     <p class="note-text">Quick intro: I'm Claire, PM for Live Chat. I own the chat widget, chatflows, and the infrastructure that powers live chat conversations. Two teams: FE and BE. I've been at HubSpot since late 2022.</p>
   </div>
 
-  <div class="note">
+  <div class="note" id="note-agenda">
     <div class="note-label">Agenda</div>
     <p class="note-text">Here's the plan: what Lovable is, four real examples from my own work, a live demo, and then you build something. I'll keep it moving.</p>
   </div>
 
-  <div class="note">
+  <div class="note" id="note-overview">
     <div class="note-label">Overview &mdash; What Is Lovable?</div>
     <p class="note-text">Lovable is an AI app builder. You type what you want in plain English and it generates a working, deployed web application. Not a sketch. Not a Figma frame. An actual app with a real URL that you can send to anyone and they can click through immediately. That's the key thing: it's not just visual, it's functional and shareable.</p>
   </div>
 
-  <div class="note">
+  <div class="note" id="note-appreciate">
     <div class="note-label">Overview &mdash; What I Appreciate</div>
     <p class="note-text">What I love about Lovable is that it eliminates every setup step I used to dread. Packages are pre-configured. You don't need external accounts to add a backend. You get AI features without API tokens. You can publish to a live URL in under a minute. There's zero gap between "I had an idea" and "I can share this with my team."</p>
   </div>
 
-  <div class="note">
+  <div class="note" id="note-claude">
     <div class="note-label">Claude &mdash; Lovable vs. Claude</div>
     <p class="note-text">I want to be upfront: Claude can also build prototypes. And for a lot of what we do here, anything that needs to connect to our actual repos and codebase, Claude is often the better tool. The way I think about it: Lovable for quick dummy sites and anything that needs a shareable URL fast. Claude for high-quality, production-grade work. Hover the cards to see the summary. You'll want to get comfortable with both.</p>
   </div>
 
-  <div class="note">
+  <div class="note" id="note-examples">
     <div class="note-label">Examples Intro</div>
     <p class="note-text">Four examples. All real. All things I built over the past few months. I'm not going to abstract these into "use cases" - I'm just going to tell you what happened.</p>
   </div>
 
-  <div class="note">
+  <div class="note" id="note-ex01-feature">
     <div class="note-label">Example 01 &mdash; The Feature</div>
     <p class="note-text">We shipped a screen capture feature for the live chat widget. Visitors on desktop and tablet can take a screenshot and attach it directly to their chat conversation. No downloading, no uploading from Finder. Just a button in the chat. The goal: give support agents more context with less friction on the customer side.</p>
   </div>
 
-  <div class="note">
+  <div class="note" id="note-ex01-feedback">
     <div class="note-label">Example 01 &mdash; The Feedback</div>
     <p class="note-text">After we shipped, a CSM named Bryony relayed a question from a customer: "Could the screenshot include the current URL?" Sounds simple. The answer is no, and here's why. The Screen Capture API only captures what's inside the browser tab. It cannot reach above the tab into browser chrome. The address bar is off-limits. That's a hard constraint from the web platform itself.</p>
   </div>
 
-  <div class="note">
+  <div class="note" id="note-ex01-prototype">
     <div class="note-label">Example 01 &mdash; The Prototype</div>
     <p class="note-text">So I didn't just say "can't do it." I asked: what can we do? I built a Lovable app to test an alternative: capture the tab, then programmatically overlay the current URL onto the image before it gets uploaded. No browser chrome needed - we get the data through JavaScript instead. I shared the prototype with the engineering DRI, exported the Lovable code, and we used it as a working reference to ship the real implementation.</p>
   </div>
 
-  <div class="note">
+  <div class="note" id="note-ex01-outcome">
     <div class="note-label">Example 01 &mdash; The Outcome</div>
     <p class="note-text">Bryony replied. Fast loop from "here's the feedback" to "here's the thing you asked for." The email says the rest.</p>
   </div>
 
-  <div class="note">
+  <div class="note" id="note-ex02">
     <div class="note-label">Example 02 &mdash; Just Do It</div>
     <p class="note-text">The next three examples are about a different mode of prototyping. Less reactive, more proactive. Building for the sake of learning, testing, and stretching. Three sub-examples here.</p>
   </div>
 
-  <div class="note">
+  <div class="note" id="note-build-learn">
     <div class="note-label">Build to Learn</div>
     <p class="note-text">When I joined the Live Chat team, I had a spec to write but I'd never gone through the end-to-end HubSpot setup flow as a customer. So before I wrote anything, I built a dummy site with Lovable, configured the live chat widget, and powered it with Customer Agent. I saw the setup process firsthand. I saw the widget exactly as a real visitor would. That changed what I wrote.</p>
   </div>
 
-  <div class="note">
+  <div class="note" id="note-build-test">
     <div class="note-label">Build to Test</div>
     <p class="note-text">Engineering told me that single-page applications are a reliable source of hard-to-replicate bugs. So I built a SPA - Fresh Fold Laundry - that the team uses during bug bashes to reproduce issues quickly. Simple, specific, useful.</p>
   </div>
 
-  <div class="note">
+  <div class="note" id="note-build-stretch">
     <div class="note-label">Build to Stretch</div>
     <p class="note-text">Once I knew the widget, I started pushing on it. What if it worked like a unified search bar? What would a spotlight-style form factor feel like? Then Vijay sent me a tweet showing a fully embedded AI agent UI inside a chat widget. I decided to just find out how far I could actually go.</p>
   </div>
 
-  <div class="note">
+  <div class="note" id="note-ex03">
     <div class="note-label">Example 03 &mdash; HubSpot Portal Lookalike</div>
     <p class="note-text">The last example is one we'll do together. I built a prototype of the HubSpot portal - specifically the Live Chat widget install screen. It's clickable, shareable, and set up as a remixable Lovable project. You can fork it and use it as your starting point for anything.</p>
   </div>
 
-  <div class="note">
+  <div class="note" id="note-tips">
     <div class="note-label">Prototyping Tips</div>
     <p class="note-text">A few things I've learned: <strong>Start with structure</strong> - get the layout right first, then layer in specifics. <strong>Use Claude to craft a good first prompt</strong> before you paste into Lovable; output quality is directly tied to input quality. <strong>Remix forever</strong> - build a strong base once and never start from scratch again. <strong>Use Dev Tools</strong> when pixel precision matters. And <strong>be mindful of security</strong> - no customer PII, no confidential HubSpot data in anything you share externally.</p>
   </div>
 
-  <div class="note">
+  <div class="note" id="note-closing">
     <div class="note-label">Closing</div>
     <p class="note-text">You don't need permission to prototype. You just need to start. The two links at the bottom are personal projects I built with Lovable - a personal board app and a dummy data generator. Neither existed six months ago. Both came from "that's annoying, I should just build that." That's the muscle. Develop it.</p>
   </div>
 
 </body>
 </html>`);
-    w.document.close();
+    notesWin.document.close();
   });
 
 </script>
