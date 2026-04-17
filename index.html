@@ -328,7 +328,13 @@
       padding: 2.5vh 0;
       border-top: 1px solid var(--accent);
       overflow: hidden;
-      cursor: default;
+      cursor: pointer;
+    }
+
+    .agenda-item a {
+      display: block;
+      text-decoration: none;
+      color: inherit;
     }
 
     .agenda-item:last-child { border-bottom: 1px solid var(--accent); }
@@ -2090,32 +2096,40 @@
   <p class="agenda-eyebrow">Today's Agenda</p>
   <ul class="agenda-list">
     <li class="agenda-item">
-      <div class="agenda-row">
-        <span class="agenda-num">01</span>
-        <span class="agenda-title">Overview</span>
-        <span class="agenda-desc">What is Lovable? When should you use it?</span>
-      </div>
+      <a href="#overview" class="agenda-link">
+        <div class="agenda-row">
+          <span class="agenda-num">01</span>
+          <span class="agenda-title">Overview</span>
+          <span class="agenda-desc">What is Lovable? When should you use it?</span>
+        </div>
+      </a>
     </li>
     <li class="agenda-item">
-      <div class="agenda-row">
-        <span class="agenda-num">02</span>
-        <span class="agenda-title">Examples</span>
-        <span class="agenda-desc">Anecdotes for how Lovable has helped me as a PM.</span>
-      </div>
+      <a href="#stories-intro" class="agenda-link">
+        <div class="agenda-row">
+          <span class="agenda-num">02</span>
+          <span class="agenda-title">Examples</span>
+          <span class="agenda-desc">Anecdotes for how Lovable has helped me as a PM.</span>
+        </div>
+      </a>
     </li>
     <li class="agenda-item">
-      <div class="agenda-row">
-        <span class="agenda-num">03</span>
-        <span class="agenda-title">Demo</span>
-        <span class="agenda-desc">I'll show you how to use Lovable live.</span>
-      </div>
+      <a href="#case-03" class="agenda-link">
+        <div class="agenda-row">
+          <span class="agenda-num">03</span>
+          <span class="agenda-title">Demo</span>
+          <span class="agenda-desc">I'll show you how to use Lovable live.</span>
+        </div>
+      </a>
     </li>
     <li class="agenda-item">
-      <div class="agenda-row">
-        <span class="agenda-num">04</span>
-        <span class="agenda-title">DIY</span>
-        <span class="agenda-desc">Then, you'll do it yourself.</span>
-      </div>
+      <a href="#closing" class="agenda-link">
+        <div class="agenda-row">
+          <span class="agenda-num">04</span>
+          <span class="agenda-title">DIY</span>
+          <span class="agenda-desc">Then, you'll do it yourself.</span>
+        </div>
+      </a>
     </li>
   </ul>
 </section>
@@ -2317,7 +2331,7 @@
       <!-- Act 3: The Constraint -->
       <div class="cs-act cs-act-constraint" id="cs-act-constraint" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box;">
         <p class="cs-act-label">The Problem</p>
-        <p class="cs-constraint-text">The Screen Capture API captures only the tab's rendered content. Not the address bar. Not the browser chrome. This is a hard browser restriction — no web API can access the browser UI.</p>
+        <p class="cs-constraint-text">The Screen Capture API captures only what's rendered inside the tab. The address bar and browser chrome are outside its reach. That's a platform-level constraint: no web API can access the browser UI.</p>
       </div>
 
       <!-- Act 4: The Prototype -->
@@ -2559,6 +2573,15 @@
   lenis.on('scroll', ScrollTrigger.update);
 
   window.addEventListener('load', () => ScrollTrigger.refresh());
+
+  // ── Agenda links ──
+  document.querySelectorAll('.agenda-link').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) lenis.scrollTo(target, { duration: 1.2, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+    });
+  });
 
   // ── Progress bar ──
   gsap.to('#progress-bar', {
